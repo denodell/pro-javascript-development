@@ -1,0 +1,39 @@
+{
+    "project": {},
+    "files": {
+        "02-Documenting JavaScript/script.js": {
+            "name": "02-Documenting JavaScript/script.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {},
+    "classitems": [
+        {
+            "file": "02-Documenting JavaScript/script.js",
+            "line": 1,
+            "description": "Convert shallow JS object to URL-encoded form data.",
+            "params": [
+                {
+                    "name": "JavaScript",
+                    "description": "object literal to covert into URL-encoded form data",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "URL encoded form data. null if empty or if object could not be converted",
+                "type": "String|null"
+            },
+            "class": ""
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nConvert shallow JS object to URL-encoded form data.",
+            "line": " 02-Documenting JavaScript/script.js:1"
+        }
+    ]
+}
