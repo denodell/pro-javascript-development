@@ -1,8 +1,8 @@
 {
     "project": {},
     "files": {
-        "02-Documenting JavaScript/script.js": {
-            "name": "02-Documenting JavaScript/script.js",
+        "script.js": {
+            "name": "script.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -13,7 +13,7 @@
     "classes": {},
     "classitems": [
         {
-            "file": "02-Documenting JavaScript/script.js",
+            "file": "script.js",
             "line": 1,
             "description": "Convert shallow JS object to URL-encoded form data.",
             "params": [
@@ -33,7 +33,7 @@
     "warnings": [
         {
             "message": "Missing item type\nConvert shallow JS object to URL-encoded form data.",
-            "line": " 02-Documenting JavaScript/script.js:1"
+            "line": " script.js:1"
         }
     ]
 }
