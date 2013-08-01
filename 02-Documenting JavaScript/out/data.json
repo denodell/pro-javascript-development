@@ -1,39 +1,165 @@
 {
     "project": {},
     "files": {
-        "script.js": {
-            "name": "script.js",
-            "modules": {},
-            "classes": {},
+        "Listing2-4.js": {
+            "name": "Listing2-4.js",
+            "modules": {
+                "Accomodation-related": 1
+            },
+            "classes": {
+                "Accomodation": 1,
+                "House": 1
+            },
             "fors": {},
             "namespaces": {}
         }
     },
-    "modules": {},
-    "classes": {},
+    "modules": {
+        "Accomodation-related": {
+            "name": "Accomodation-related",
+            "submodules": {},
+            "classes": {
+                "Accomodation": 1,
+                "House": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "Listing2-4.js",
+            "line": 88,
+            "description": "Accomodation-related classes"
+        }
+    },
+    "classes": {
+        "Accomodation": {
+            "name": "Accomodation",
+            "shortname": "Accomodation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Accomodation-related",
+            "namespace": "",
+            "file": "Listing2-4.js",
+            "line": 7,
+            "description": "A class defining types of accomodation",
+            "is_constructor": 1,
+            "example": [
+                "\n    var myAccomodation = new Accomodation();"
+            ]
+        },
+        "House": {
+            "name": "House",
+            "shortname": "House",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Accomodation-related",
+            "namespace": "",
+            "file": "Listing2-4.js",
+            "line": 88,
+            "description": "Class representing a house, a specific type of accomodation",
+            "is_constructor": 1,
+            "extends": "Accomodation",
+            "example": [
+                "\n    var myHouse = new House();"
+            ]
+        }
+    },
     "classitems": [
         {
-            "file": "script.js",
-            "line": 1,
-            "description": "Convert shallow JS object to URL-encoded form data.",
-            "params": [
-                {
-                    "name": "JavaScript",
-                    "description": "object literal to covert into URL-encoded form data",
-                    "type": "Object"
-                }
+            "file": "Listing2-4.js",
+            "line": 18,
+            "description": "Denotes whether the acommodation is currently locked",
+            "itemtype": "property",
+            "name": "isLocked",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "Accomodation",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 28,
+            "description": "Locks the accomodation",
+            "itemtype": "method",
+            "name": "lock",
+            "example": [
+                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.lock();"
             ],
+            "class": "Accomodation",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 41,
+            "description": "Unlocks the accomodation",
+            "itemtype": "method",
+            "name": "unlock",
+            "example": [
+                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.unlock();"
+            ],
+            "class": "Accomodation",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 54,
+            "description": "Establishes whether the accomodation is currently locked or not",
+            "itemtype": "method",
+            "name": "getIsLocked",
             "return": {
-                "description": "URL encoded form data. null if empty or if object could not be converted",
-                "type": "String|null"
+                "description": "Value indicating lock status - 'true' means locked",
+                "type": "Boolean"
             },
-            "class": ""
+            "example": [
+                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.getIsLocked(); // false",
+                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.lock();\n    myAccomodation.getIsLocked(); // true"
+            ],
+            "class": "Accomodation",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 73,
+            "description": "Executed automatically upon creation of an object instance of this class.\nUnlocks the accomodation.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Accomodation",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 100,
+            "description": "Indicates whether the house is alarmed or not - 'true' means alarmed",
+            "itemtype": "property",
+            "name": "isAlarmed",
+            "type": "Boolean",
+            "class": "House",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 108,
+            "description": "Activates the house alarm",
+            "itemtype": "method",
+            "name": "alarm",
+            "class": "House",
+            "module": "Accomodation-related"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 119,
+            "description": "Locks the house and activates the alarm",
+            "itemtype": "method",
+            "name": "lock",
+            "class": "House",
+            "module": "Accomodation-related"
         }
     ],
-    "warnings": [
-        {
-            "message": "Missing item type\nConvert shallow JS object to URL-encoded form data.",
-            "line": " script.js:1"
-        }
-    ]
+    "warnings": []
 }
