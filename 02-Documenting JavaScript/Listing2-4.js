@@ -114,7 +114,7 @@ var House = Accomodation.extend({
     alarm: function() {
         this.isAlarmed = true;
         alert("Alarm activated!");
-    }
+    },
 
     /**
      * Locks the house and activates the alarm
