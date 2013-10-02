@@ -1,0 +1,8 @@
+.element {
+    /* enforces hardware acceleration on the GPU */
+    -webkit-transform: translateZ(0); /* Vendor-specific prefix for Safari / Chrome */
+    -moz-transform: translateZ(0); /* Vendor-specific prefix for Firefox */
+    -ms-transform: translateZ(0); /* Vendor-specific prefix for Internet Explorer */
+    -o-transform: translateZ(0); /* Vendor-specific prefix for Opera */
+    transform: translateZ(0);  /* Standard, non-vendor-specific rule */
+}

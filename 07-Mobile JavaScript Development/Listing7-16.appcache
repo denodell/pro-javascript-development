@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# Version 1.0.1 - 2013-10-02
+
+CACHE:
+/library/styles/main.css
+/library/scripts/lib/jquery.min.js
+/library/scripts/main.js
+/images/background.jpg
+/images/logo.png
+
+# Always go straight to the network for API calls from a base /api/ URL
+NETWORK:
+/api/
+
+# Replace a ‘network online’ image with a ‘network offline’ image when the network is down
+FALLBACK:
+/images/network-status-online.png /images/network-status-offline.png
