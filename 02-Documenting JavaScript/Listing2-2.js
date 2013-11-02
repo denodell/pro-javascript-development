@@ -5,7 +5,7 @@
  * @static
  */
 
-// A self-instantiating class such as this is known as a singleton or static "class"
+// A self-instantiating "class" such as this is known as a singleton or static "class"
 var Cookies = (function() {
     // Properties and methods to get and set cookie values go here…
 }());
