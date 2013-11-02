@@ -3,7 +3,7 @@
 function Accommodation(floors, rooms, sharedEntrance) {
 
     // Initialize three properties with values passed in when an object is instantiated
-    // from this class. The Logical OR operation - || - allows a default value to be specified
+    // from this "class". The Logical OR operation - || - allows a default value to be specified
     // in case no value is passed in
     this.floors = floors || 0;
     this.rooms = rooms || 0;
@@ -22,7 +22,7 @@ Accommodation.prototype.unlock = function() {
     this.isLocked = false;
 };
 
-// Instantiate an object from the class, passing in two out of the possible three values
+// Instantiate an object from the "class", passing in two out of the possible three values
 // for initialization. Arguments are passed in the order defined on the constructor function
 var house = new Accommodation(2, 7);
 

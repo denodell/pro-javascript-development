@@ -20,7 +20,7 @@ Accommodation.prototype.unlock = function() {
     this.isLocked = false;
 };
 
-// Instantiate two objects from the Accommodation class, passing in named arguments
+// Instantiate two objects from the Accommodation "class", passing in named arguments
 // through an object literal
 var house = new Accommodation({
     floors: 2,

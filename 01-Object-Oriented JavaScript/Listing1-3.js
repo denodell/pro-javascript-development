@@ -1,7 +1,7 @@
-// Define a class called Accommodation
+// Define a constructor called Accommodation
 function Accommodation() {}
 
-// Assign properties and methods to our class blueprint with an object literal
+// Assign properties and methods to our "class" blueprint with an object literal
 Accommodation.prototype = {
     floors: 0,
     rooms: 0,
@@ -10,7 +10,7 @@ Accommodation.prototype = {
     unlock: function() {}
 };
 
-// Create object instances from our Accommodation class
+// Create object instances from our Accommodation "class"
 var house = new Accommodation();
 var apartment = new Accommodation();
 

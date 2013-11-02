@@ -1,7 +1,7 @@
 // Define a new constructor function to represent a type of accommodation
 function Accommodation() {
 
-    // The 'this' keyword refers to the individual object instance created from this class
+    // The 'this' keyword refers to the individual object instance created from this "class"
     this.floors = 0;
     this.rooms = 0;
     this.sharedEntrance = false;

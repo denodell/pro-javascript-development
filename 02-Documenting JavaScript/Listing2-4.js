@@ -1,129 +1,106 @@
 /**
- * Accomodation-related classes
+ * A "class" defining types of accommodation
  *
- * @module Accomodation-related
- */
-
-/**
- * A class defining types of accomodation
- *
- * @class Accomodation
+ * @class Accommodation
  * @constructor
- * @example
- *     var myAccomodation = new Accomodation();
  */
 
-var Accomodation = Class.create((function() {
+var Accommodation = (function() {
+    function Accommodation() {}
 
     /**
-     * Denotes whether the acommodation is currently locked
+     * Denotes whether the property is currently locked
      *
-     * @property {Boolean} isLocked
+     * @property {Boolean} _isLocked
      * @protected
      */
 
-    var isLocked = true,
-        publicPropertiesAndMethods = {
+    var _isLocked = false,
 
-            /**
-             * Locks the accomodation
-             *
-             * @method lock
-             * @example
-             *     var myAccomodation = new Accomodation();
-             *     myAccomodation.lock();
-             */
+        /**
+         * Denotes whether the property is currently alarmed
+         *
+         * @property {Boolean} _isAlarmed
+         * @private
+         */
 
-            lock: function() {
-                isLocked = true;
-            },
+        _isAlarmed = false,
 
-            /**
-             * Unlocks the accomodation
-             *
-             * @method unlock
-             * @example
-             *     var myAccomodation = new Accomodation();
-             *     myAccomodation.unlock();
-             */
+        /**
+         * Message to display when the alarm is activated
+         *
+         * @property {String} _alarmMessage
+         * @protected
+         */
 
-            unlock: function() {
-                isLocked = false;
-            },
-
-            /**
-             * Establishes whether the accomodation is currently locked or not
-             *
-             * @method getIsLocked
-             * @return {Boolean} Value indicating lock status - 'true' means locked
-             * @example
-             *     var myAccomodation = new Accomodation();
-             *     myAccomodation.getIsLocked(); // false
-             *
-             * @example
-             *     var myAccomodation = new Accomodation();
-             *     myAccomodation.lock();
-             *     myAccomodation.getIsLocked(); // true
-             */
-
-            getIsLocked: function() {
-                return isLocked;
-            },
-
-            /**
-             * Executed automatically upon creation of an object instance of this class.
-             * Unlocks the accomodation.
-             *
-             * @method initialize
-             */
-
-            initialize: function() {
-                this.unlock();
-            }
-        };
-
-    return publicPropertiesAndMethods;
-}()));
-
-/**
- * Class representing a house, a specific type of accomodation
- *
- * @class House
- * @constructor
- * @extends Accomodation
- * @example
- *     var myHouse = new House();
- */
-
-var House = Accomodation.extend({
+        _alarmMessage = "Alarm activated!";
 
     /**
-     * Indicates whether the house is alarmed or not - 'true' means alarmed
+     * Activates the alarm
      *
-     * @property {Boolean} isAlarmed
+     * @method _alarm
+     * @private
      */
 
-    isAlarmed: false,
+    function _alarm() {
+        _isAlarmed = true;
+        alert(_alarmMessage);
+    }
 
     /**
-     * Activates the house alarm
+     * Disables the alarm
      *
-     * @method alarm
+     * @method _disableAlarm
+     * @private
      */
 
-    alarm: function() {
-        this.isAlarmed = true;
-        alert("Alarm activated!");
-    },
+    function _disableAlarm() {
+        _isAlarmed = false;
+    }
 
     /**
-     * Locks the house and activates the alarm
+     * Locks the accommodation
      *
      * @method lock
      */
 
-    lock: function() {
-        Accomodation.prototype.lock.call(this);
-        this.alarm();
-    }
-});
+    Accommodation.prototype.lock = function() {
+        _isLocked = true;
+        _alarm();
+    };
+
+    /**
+     * Unlocks the accommodation
+     *
+     * @method unlock
+     */
+
+    Accommodation.prototype.unlock = function() {
+        _isLocked = false;
+        _disableAlarm();
+    };
+
+    /**
+     * Returns the current lock state of the accommodation
+     *
+     * @method getIsLocked
+     * @return {Boolean} Indicates lock state, ‘true’ indicates that the accommodation is locked
+     */
+
+    Accommodation.prototype.getIsLocked = function() {
+        return _isLocked;
+    };
+
+    /**
+     * Sets a new alarm message to be displayed when the accommodation is locked
+     *
+     * @method setAlarmMessage
+     * @param {String} message The new alarm message text
+     */
+
+    Accommodation.prototype.setAlarmMessage = function(message) {
+        _alarmMessage = message;
+    };
+
+    return Accommodation;
+}());

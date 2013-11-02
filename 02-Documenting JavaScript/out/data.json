@@ -1,13 +1,36 @@
 {
     "project": {},
     "files": {
+        "Listing2-2.js": {
+            "name": "Listing2-2.js",
+            "modules": {},
+            "classes": {
+                "Cookies": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Listing2-3.js": {
+            "name": "Listing2-3.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "Listing2-4.js": {
             "name": "Listing2-4.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Listing2-5.js": {
+            "name": "Listing2-5.js",
             "modules": {
-                "Accomodation-related": 1
+                "Accommodation-related": 1
             },
             "classes": {
-                "Accomodation": 1,
+                "Accommodation": 1,
                 "House": 1
             },
             "fors": {},
@@ -15,38 +38,52 @@
         }
     },
     "modules": {
-        "Accomodation-related": {
-            "name": "Accomodation-related",
+        "Accommodation-related": {
+            "name": "Accommodation-related",
             "submodules": {},
             "classes": {
-                "Accomodation": 1,
+                "Cookies": 1,
+                "Accommodation": 1,
                 "House": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 88,
-            "description": "Accomodation-related classes"
+            "description": "Accommodation-related \"classes\""
         }
     },
     "classes": {
-        "Accomodation": {
-            "name": "Accomodation",
-            "shortname": "Accomodation",
+        "Cookies": {
+            "name": "Cookies",
+            "shortname": "Cookies",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Accomodation-related",
-            "namespace": "",
-            "file": "Listing2-4.js",
+            "module": "Accommodation-related",
+            "file": "Listing2-2.js",
+            "line": 1,
+            "description": "A static \"class\" containing methods for reading and writing browser cookies",
+            "static": 1
+        },
+        "Accommodation": {
+            "name": "Accommodation",
+            "shortname": "Accommodation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Accommodation-related",
+            "file": "Listing2-5.js",
             "line": 7,
-            "description": "A class defining types of accomodation",
+            "description": "A \"class\" defining types of accommodation",
             "is_constructor": 1,
             "example": [
-                "\n    var myAccomodation = new Accomodation();"
+                "\n    var myAccommodation = new Accommodation();"
             ]
         },
         "House": {
@@ -57,13 +94,13 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Accomodation-related",
+            "module": "Accommodation-related",
             "namespace": "",
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 88,
-            "description": "Class representing a house, a specific type of accomodation",
+            "description": "\"Class\" representing a house, a specific type of accommodation",
             "is_constructor": 1,
-            "extends": "Accomodation",
+            "extends": "Accommodation",
             "example": [
                 "\n    var myHouse = new House();"
             ]
@@ -71,45 +108,183 @@
     },
     "classitems": [
         {
-            "file": "Listing2-4.js",
-            "line": 18,
+            "file": "Listing2-3.js",
+            "line": 10,
             "description": "Denotes whether the acommodation is currently locked",
             "itemtype": "property",
             "name": "isLocked",
             "type": "Boolean",
-            "access": "protected",
-            "tagname": "",
-            "class": "Accomodation",
-            "module": "Accomodation-related"
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-3.js",
+            "line": 18,
+            "description": "Denotes whether the acommodation is currently alarmed - thieves beware!",
+            "itemtype": "property",
+            "name": "isAlarmed",
+            "type": "Boolean",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-3.js",
+            "line": 26,
+            "description": "Locks the accommodation",
+            "itemtype": "method",
+            "name": "lock",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-3.js",
+            "line": 36,
+            "description": "Unlocks the accommodation",
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-3.js",
+            "line": 46,
+            "description": "Executed automatically upon creation of an object instance of this \"class\".\nUnlocks the accommodation.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Accommodation"
         },
         {
             "file": "Listing2-4.js",
+            "line": 11,
+            "description": "Denotes whether the property is currently locked",
+            "itemtype": "property",
+            "name": "_isLocked",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 20,
+            "description": "Denotes whether the property is currently alarmed",
+            "itemtype": "property",
+            "name": "_isAlarmed",
+            "type": "Boolean",
+            "access": "private",
+            "tagname": "",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 29,
+            "description": "Message to display when the alarm is activated",
+            "itemtype": "property",
+            "name": "_alarmMessage",
+            "type": "String",
+            "access": "protected",
+            "tagname": "",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 38,
+            "description": "Activates the alarm",
+            "itemtype": "method",
+            "name": "_alarm",
+            "access": "private",
+            "tagname": "",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 50,
+            "description": "Disables the alarm",
+            "itemtype": "method",
+            "name": "_disableAlarm",
+            "access": "private",
+            "tagname": "",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 61,
+            "description": "Locks the accommodation",
+            "itemtype": "method",
+            "name": "lock",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 72,
+            "description": "Unlocks the accommodation",
+            "itemtype": "method",
+            "name": "unlock",
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 83,
+            "description": "Returns the current lock state of the accommodation",
+            "itemtype": "method",
+            "name": "getIsLocked",
+            "return": {
+                "description": "Indicates lock state, ‘true’ indicates that the accommodation is locked",
+                "type": "Boolean"
+            },
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-4.js",
+            "line": 94,
+            "description": "Sets a new alarm message to be displayed when the accommodation is locked",
+            "itemtype": "method",
+            "name": "setAlarmMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The new alarm message text",
+                    "type": "String"
+                }
+            ],
+            "class": "Accommodation"
+        },
+        {
+            "file": "Listing2-5.js",
+            "line": 18,
+            "description": "Denotes whether the accommodation is currently locked",
+            "itemtype": "property",
+            "name": "_isLocked",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "Accommodation",
+            "module": "Accommodation-related"
+        },
+        {
+            "file": "Listing2-5.js",
             "line": 28,
-            "description": "Locks the accomodation",
+            "description": "Locks the accommodation",
             "itemtype": "method",
             "name": "lock",
             "example": [
-                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.lock();"
+                "\n    var myAccommodation = new Accommodation();\n    myAccommodation.lock();"
             ],
-            "class": "Accomodation",
-            "module": "Accomodation-related"
+            "class": "Accommodation",
+            "module": "Accommodation-related"
         },
         {
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 41,
-            "description": "Unlocks the accomodation",
+            "description": "Unlocks the accommodation",
             "itemtype": "method",
             "name": "unlock",
             "example": [
-                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.unlock();"
+                "\n    var myAccommodation = new Accommodation();\n    myAccommodation.unlock();"
             ],
-            "class": "Accomodation",
-            "module": "Accomodation-related"
+            "class": "Accommodation",
+            "module": "Accommodation-related"
         },
         {
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 54,
-            "description": "Establishes whether the accomodation is currently locked or not",
+            "description": "Establishes whether the accommodation is currently locked or not",
             "itemtype": "method",
             "name": "getIsLocked",
             "return": {
@@ -117,48 +292,48 @@
                 "type": "Boolean"
             },
             "example": [
-                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.getIsLocked(); // false",
-                "\n    var myAccomodation = new Accomodation();\n    myAccomodation.lock();\n    myAccomodation.getIsLocked(); // true"
+                "\n    var myAccommodation = new Accommodation();\n    myAccommodation.getIsLocked(); // false",
+                "\n    var myAccommodation = new Accommodation();\n    myAccommodation.lock();\n    myAccommodation.getIsLocked(); // true"
             ],
-            "class": "Accomodation",
-            "module": "Accomodation-related"
+            "class": "Accommodation",
+            "module": "Accommodation-related"
         },
         {
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 73,
-            "description": "Executed automatically upon creation of an object instance of this class.\nUnlocks the accomodation.",
+            "description": "Executed automatically upon creation of an object instance of this \"class\".\nUnlocks the accommodation.",
             "itemtype": "method",
             "name": "initialize",
-            "class": "Accomodation",
-            "module": "Accomodation-related"
+            "class": "Accommodation",
+            "module": "Accommodation-related"
         },
         {
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 100,
             "description": "Indicates whether the house is alarmed or not - 'true' means alarmed",
             "itemtype": "property",
             "name": "isAlarmed",
             "type": "Boolean",
             "class": "House",
-            "module": "Accomodation-related"
+            "module": "Accommodation-related"
         },
         {
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 108,
             "description": "Activates the house alarm",
             "itemtype": "method",
             "name": "alarm",
             "class": "House",
-            "module": "Accomodation-related"
+            "module": "Accommodation-related"
         },
         {
-            "file": "Listing2-4.js",
+            "file": "Listing2-5.js",
             "line": 119,
             "description": "Locks the house and activates the alarm",
             "itemtype": "method",
             "name": "lock",
             "class": "House",
-            "module": "Accomodation-related"
+            "module": "Accommodation-related"
         }
     ],
     "warnings": []

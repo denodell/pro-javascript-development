@@ -4,7 +4,7 @@ var personalDetails = {
     email: "den.odell@me.com"
 };
 
-alert(Object.isExtensible(personalDetails)); // true, asby default all objects can be extended
+alert(Object.isExtensible(personalDetails)); // true, as by default all objects can be extended
 
 // Prevent the ‘personalDetails’ object being added to
 Object.preventExtensions(personalDetails);

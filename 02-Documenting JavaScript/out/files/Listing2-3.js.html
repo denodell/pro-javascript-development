@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Listing2-3.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
-    <link rel="stylesheet" href="./assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="./assets/css/main.css" id="site_styles">
-    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
     <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
 </head>
 <body class="yui3-skin-sam">
@@ -15,7 +15,7 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="./assets/css/logo.png" title=""></h1>
+                <h1><img src="../assets/css/logo.png" title=""></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
@@ -41,17 +41,17 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="./classes/Accommodation.html">Accommodation</a></li>
+                <li><a href="../classes/Accommodation.html">Accommodation</a></li>
             
-                <li><a href="./classes/Cookies.html">Cookies</a></li>
+                <li><a href="../classes/Cookies.html">Cookies</a></li>
             
-                <li><a href="./classes/House.html">House</a></li>
+                <li><a href="../classes/House.html">House</a></li>
             
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="./modules/Accommodation-related.html">Accommodation-related</a></li>
+                <li><a href="../modules/Accommodation-related.html">Accommodation-related</a></li>
             
             </ul>
         </div>
@@ -88,27 +88,68 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                            <div class="apidocs">
-        <div id="docs-main" class="content">
-            <p>
-            Browse to a module or class using the sidebar to view its API documentation.
-            </p>
+                        <h1 class="file-heading">File: Listing2-3.js</h1>
 
-            <h2>Keyboard Shortcuts</h2>
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * A &quot;class&quot; defining types of accommodation
+ *
+ * @class Accommodation
+ * @constructor
+ */
 
-            <ul>
-                <li><p>Press <kbd>s</kbd> to focus the API search box.</p></li>
+var Accommodation = Class.create({
 
-                <li><p>Use <kbd>Up</kbd> and <kbd>Down</kbd> to select classes, modules, and search results.</p></li>
+    /**
+     * Denotes whether the acommodation is currently locked
+     *
+     * @property {Boolean} isLocked
+     */
 
-                <li class="mac-only"><p>With the API search box or sidebar focused, use <kbd><span class="cmd">&#x2318;</span>-Left</kbd> or <kbd><span class="cmd">&#x2318;</span>-Right</kbd> to switch sidebar tabs.</p></li>
+    isLocked: true,
 
-                <li class="pc-only"><p>With the API search box or sidebar focused, use <kbd>Ctrl+Left</kbd> and <kbd>Ctrl+Right</kbd> to switch sidebar tabs.</p></li>
-            </ul>
-        </div>
-    </div>
+    /**
+     * Denotes whether the acommodation is currently alarmed - thieves beware!
+     *
+     * @property {Boolean} isAlarmed
+     */
 
+    isAlarmed: true,
 
+    /**
+     * Locks the accommodation
+     *
+     * @method lock
+     */
+
+    lock: function() {
+        this.isLocked = true;
+    },
+
+    /**
+     * Unlocks the accommodation
+     *
+     * @method unlock
+     */
+
+    unlock: function() {
+        this.isLocked = false;
+    },
+
+    /**
+     * Executed automatically upon creation of an object instance of this &quot;class&quot;.
+     * Unlocks the accommodation.
+     *
+     * @method initialize
+     */
+
+    initialize: function() {
+        this.unlock();
+    }
+});
+    </pre>
+</div>
 
                     </div>
                 </div>
@@ -116,13 +157,13 @@
         </div>
     </div>
 </div>
-<script src="./assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
 <script>prettyPrint();</script>
-<script src="./assets/js/yui-prettify.js"></script>
-<script src="./assets/../api.js"></script>
-<script src="./assets/js/api-filter.js"></script>
-<script src="./assets/js/api-list.js"></script>
-<script src="./assets/js/api-search.js"></script>
-<script src="./assets/js/apidocs.js"></script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
 </body>
 </html>

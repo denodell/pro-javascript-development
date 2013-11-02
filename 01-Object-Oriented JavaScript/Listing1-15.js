@@ -1,4 +1,4 @@
-// Define a simple class
+// Define a simple "class"
 function Accommodation() {
     this.isAlarmed = false;
 }

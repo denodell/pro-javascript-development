@@ -1,16 +1,16 @@
-// Define a class called Accommodation
+// Define a constructor called Accommodation
 function Accommodation() {}
 
-// Assign properties to our class blueprint
+// Assign properties to our "class" blueprint
 Accommodation.prototype.floors = 0;
 Accommodation.prototype.rooms = 0;
 Accommodation.prototype.sharedEntrance = false;
 
-// Assign methods to our class blueprint
+// Assign methods to our "class" blueprint
 Accommodation.prototype.lock = function() {};
 Accommodation.prototype.unlock = function() {};
 
-// Create object instances from our Accommodation class
+// Create object instances from our Accommodation "class"
 var house = new Accommodation();
 var apartment = new Accommodation();
 

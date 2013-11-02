@@ -6,4 +6,5 @@ var daysOfTheWeek = ["Monday", "Tuesday", "Wednesday"],
         return value + " starts with " + value.charAt(0);
     });
 
-alert(daysFirstLetters.join(", ")); // “Monday starts with M, Tuesday starts with T, Wednesday starts with W”
+alert(daysFirstLetters.join(", ")); // "Monday starts with M, Tuesday starts with T,
+                                    // Wednesday starts with W"

@@ -1,4 +1,4 @@
-// Define our parent Accommodation class
+// Define our parent Accommodation "class"
 function Accommodation() {
     this.isLocked = false;
     this.isAlarmed = false;
@@ -29,11 +29,11 @@ function House() {}
 // Inherit from Accommodation
 House.prototype = new Accommodation();
 
-// Redefine the ‘lock’ method specifically for the House class - known as Polymorphism
+// Redefine the ‘lock’ method specifically for the House "class" - known as Polymorphism
 House.prototype.lock = function() {
 
-    // Execute the ‘lock’ method from the parent Accommodation class. We can access this
-    // directly through the prototype property of the class definition. We pass our context
+    // Execute the ‘lock’ method from the parent Accommodation "class". We can access this
+    // directly through the prototype property of the "class" definition. We pass our context
     // to the function using the ‘call’ method of the function, ensuring that any references to
     // ‘this’ within the ‘lock’ method refer to the current object instance of House
     Accommodation.prototype.lock.call(this);

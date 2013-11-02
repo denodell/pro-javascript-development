@@ -1,17 +1,18 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Accomodation",
+        "Accommodation",
+        "Cookies",
         "House"
     ],
     "modules": [
-        "Accomodation-related"
+        "Accommodation-related"
     ],
     "allModules": [
         {
-            "displayName": "Accomodation-related",
-            "name": "Accomodation-related",
-            "description": "Accomodation-related classes"
+            "displayName": "Accommodation-related",
+            "name": "Accommodation-related",
+            "description": "Accommodation-related \"classes\""
         }
     ]
 } };
