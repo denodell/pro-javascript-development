@@ -1,5 +1,5 @@
 // Use the factory to create a text input form field, an email form field, and a submit button.
-// Note how we do not need to know about the underlying classes or their specific inputs to
+// Note how we do not need to know about the underlying "classes" or their specific inputs to
 // create the form fields - the FormFieldFactory abstracts this away
 var textField = FormFieldFactory.makeField({
         type: "text",

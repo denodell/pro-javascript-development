@@ -12,7 +12,7 @@ var supportsHtml5FormFields = (function() {
     }()),
 
     // Use the value returned previously to select the appropriate field field creation factory
-    // class and create an instance of it
+    // "class" and create an instance of it
     formFieldFactory = supportsHtml5FormFields ? new Html5FormFieldFactory() : new Html4FormFieldFactory(),
 
     // Use the factory to create a text input form field, an email form field, and a submit
@@ -28,8 +28,9 @@ var supportsHtml5FormFields = (function() {
     }),
 
     // Notice how we can harness the availableTypes property containing the list of supported
-    // field types from the factory class instead of using a hard-coded text string for the form
-    // field type. This is preferred, just as variables are preferable over hard-coded values.
+    // field types from the factory "class" instead of using a hard-coded text string for the
+    // form field type. This is preferred, just as variables are preferable over
+    // hard-coded values.
     buttonField = formFieldFactory.makeField({
         type: formFieldFactory.availableTypes.BUTTON,
         displayText: "Submit"

@@ -1,7 +1,7 @@
-// Define a builder class for constructing simple forms which can be configured according to the
-// end developer's needs. The end developer will instantiate the builder and add fields to the
-// form as needed throughout the course of their application, finally calling a method to return
-// a <form> element containing all the fields added
+// Define a builder "class" for constructing simple forms which can be configured according to
+// the end developer's needs. The end developer will instantiate the builder and add fields to
+// the form as needed throughout the course of their application, finally calling a method to
+// return a <form> element containing all the fields added
 function FormBuilder() {}
 FormBuilder.prototype = {
 
@@ -13,7 +13,7 @@ FormBuilder.prototype = {
         var field;
 
         // Use the supplied form field type and display text to instantiate the relevant form
-        // field class
+        // field "class"
         if (type === "text") {
             field = new TextField(displayText);
         } else if (type === "email") {
@@ -50,7 +50,7 @@ FormBuilder.prototype = {
     }
 };
 
-// Define the underlying form field classes, as in Listing 5-1
+// Define the underlying form field "classes", as in Listing 5-1
 function TextField(displayText) {
     this.displayText = displayText;
 }

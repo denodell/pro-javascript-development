@@ -1,14 +1,14 @@
 var textField,
     emailField;
 
-// Define a Field class to be used for creating <input> form elements
+// Define a Field "class" to be used for creating <input> form elements
 function Field(type, displayText) {
     this.type = type || "";
     this.displayText = displayText || "";
 }
 
 // Use the prototype property to adopt the Prototype pattern of defining methods that will be
-// applied to any object instantiated from this class
+// applied to any object instantiated from this "class"
 Field.prototype = {
     getElement: function() {
         var textField = document.createElement("input");

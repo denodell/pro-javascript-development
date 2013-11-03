@@ -1,5 +1,5 @@
-// Define a base factory class for creating form fields, from which other, more specialised form
-// field creation factory classes will be inherited.
+// Define a base factory "class" for creating form fields, from which other, more specialised
+// form field creation factory "classes" will be inherited.
 function FormFieldFactory() {}
 FormFieldFactory.prototype = {
 
@@ -12,16 +12,16 @@ FormFieldFactory.prototype = {
     },
 
     // Define a makeField method which will be overwritten by sub classes using polymorphism.
-    // This method should therefore not be called directly from within this parent class so
+    // This method should therefore not be called directly from within this parent "class" so
     // we'll throw an error if it is
     makeField: function() {
         throw new Error("This method should not be called directly.");
     }
 };
 
-// Define a factory class, inherited from the base class, for creating HTML5 form fields. Read
-// more about the differences in these form fields from HTML4 at
-// http://diveintohtml5.info/forms.html
+// Define a factory "class", inherited from the base "class", for creating HTML5 form fields.
+// Read more about the differences in these form fields from HTML4 at
+// http://bit.ly/html5_webforms
 function Html5FormFieldFactory() {}
 Html5FormFieldFactory.prototype = new FormFieldFactory();
 
@@ -47,7 +47,7 @@ Html5FormFieldFactory.prototype.makeField = function() {
     return field;
 };
 
-// Define a factory class, also inherited from the same base class, for creating older-style
+// Define a factory "class", also inherited from the same base "class", for creating older-style
 // HTML4 form fields
 function Html4FormFieldFactory() {}
 Html4FormFieldFactory.prototype = new FormFieldFactory();
@@ -72,7 +72,7 @@ Html4FormFieldFactory.prototype.makeField = function() {
     return field;
 };
 
-// Define the form field classes to be used for creating HTML5 and HTML4 form elements
+// Define the form field "classes" to be used for creating HTML5 and HTML4 form elements
 function Html5TextField(displayText) {
     this.displayText = displayText;
 }
@@ -122,9 +122,9 @@ Html5EmailField.prototype.getElement = function() {
 };
 
 // We define the button form element to be identical for both HTML5 and HTML4 form field types,
-// so no need for two separate classes. If we ever needed to create a different HTML5 version in
-// future, we'd only need to update the relevant factory class with the change, and the rest of
-// the code in our full application will adapt accordingly
+// so no need for two separate "classes". If we ever needed to create a different HTML5 version
+// in future, we'd only need to update the relevant factory "class" with the change, and the
+// rest of the code in our full application will adapt accordingly
 function ButtonField(displayText) {
     this.displayText = displayText;
 }

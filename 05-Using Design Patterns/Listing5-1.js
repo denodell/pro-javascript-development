@@ -1,5 +1,5 @@
-// Define the factory that will make form field objects for us using the most appropriate class
-// depending on the inputs
+// Define the factory that will make form field objects for us using the most appropriate
+// "class" depending on the inputs
 var FormFieldFactory = {
 
         // The makeField method takes two options:
@@ -13,7 +13,7 @@ var FormFieldFactory = {
                 displayText = options.displayText || "",
                 field;
 
-            // Create an object instance using the most appropriate class based on the
+            // Create an object instance using the most appropriate "class" based on the
             // input type
             if (type === "text") {
                 field = new TextField(displayText);
@@ -27,7 +27,7 @@ var FormFieldFactory = {
         }
     };
 
-// Define the TextField class to be used for creating <input type="text"> form elements
+// Define the TextField "class" to be used for creating <input type="text"> form elements
 function TextField(displayText) {
     this.displayText = displayText;
 }
@@ -41,7 +41,7 @@ TextField.prototype.getElement = function() {
     return textField;
 };
 
-// Define the EmailField class to be used for creating <input type="email"> form elements
+// Define the EmailField "class" to be used for creating <input type="email"> form elements
 function EmailField(displayText) {
     this.displayText = displayText;
 }
@@ -55,7 +55,7 @@ EmailField.prototype.getElement = function() {
     return emailField;
 };
 
-// Define the ButtonField class to be used for creating <button> form elements
+// Define the ButtonField "class" to be used for creating <button> form elements
 function ButtonField(displayText) {
     this.displayText = displayText;
 }
