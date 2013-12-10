@@ -1,4 +1,9 @@
 {
-    "name": "jasmine-istanbul-grunt",
-    "version": "1.0.0"
+  "name": "jasmine-istanbul-grunt",
+  "version": "1.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jasmine": "~0.5.2",
+    "grunt-template-jasmine-istanbul": "~0.2.5"
+  }
 }

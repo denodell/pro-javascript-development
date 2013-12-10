@@ -2,21 +2,21 @@ module.exports = function(grunt) {
     grunt.initConfig({
         jasmine: {
             coverage: {
-                src: ['src/*.js'],
+                src: ["src/*.js"],
                 options: {
-                    specs: ['spec/*.js'],
-                    template: require('grunt-template-jasmine-istanbul'),
+                    specs: ["spec/*.js"],
+                    template: require("grunt-template-jasmine-istanbul"),
                     templateOptions: {
-                        coverage: 'reports/coverage.json',
+                        coverage: "reports/coverage.json",
                         report: [
                             {
-                                type: 'lcov',
+                                type: "lcov",
                                 options: {
-                                    dir: 'reports'
+                                    dir: "reports"
                                 }
                             },
                             {
-                                type: 'text-summary'
+                                type: "text-summary"
                             }
                         ]
                     }
@@ -25,8 +25,8 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-template-jasmine-istanbul');
+    grunt.loadNpmTasks("grunt-contrib-jasmine");
+    grunt.loadNpmTasks("grunt-template-jasmine-istanbul");
 
-    grunt.registerTask('default', ['jasmine:coverage']);
+    grunt.registerTask("default", ["jasmine:coverage"]);
 };
