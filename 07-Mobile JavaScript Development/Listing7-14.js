@@ -4,6 +4,7 @@ function ajax(url, callback) {
     var xhr = new XMLHttpRequest();
 
     if (!navigator.onLine) {
+
         // Data in localStorage is stored as strings, so to store complex data structures such
         // as arrays or objects, we need to convert those into a JSON-formatted string first
         localStorage["stack"].push(JSON.stringify(arguments));
@@ -26,6 +27,7 @@ function ajax(url, callback) {
 function clearStack() {
     if (navigator.onLine) {
         while (localStorage["stack"].length) {
+
             // After reading the JSON-formatted string data out of localStorage, it needs to be
             // converted back into a complex data form for use with the ajax() function
             ajax.apply(ajax, JSON.parse(localStorage["stack"].shift()));

@@ -12,6 +12,6 @@ CACHE:
 NETWORK:
 /api/
 
-# Replace a ‘network online’ image with a ‘network offline’ image when the network is down
+# Replace a 'network online' image with a 'network offline' image when the network is down
 FALLBACK:
 /images/network-status-online.png /images/network-status-offline.png

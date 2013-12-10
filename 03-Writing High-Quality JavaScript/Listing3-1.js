@@ -1,19 +1,19 @@
-/*jslint devel: true, white: true */
+/*jslint devel: true, nomen: true, white: true */
 /*global Class: false */
 
 var Accomodation = Class.create((function() {
     "use strict";
 
-    var isLocked = true,
+    var _isLocked = true,
         publicPropertiesAndMethods = {
             lock: function() {
-                isLocked = true;
+                _isLocked = true;
             },
             unlock: function() {
-                isLocked = false;
+                _isLocked = false;
             },
             getIsLocked: function() {
-                return isLocked;
+                return _isLocked;
             },
             initialize: function() {
                 this.unlock();

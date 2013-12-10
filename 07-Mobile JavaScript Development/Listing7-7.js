@@ -1,6 +1,6 @@
-// Reference page elements for dropping current device acceleration values into
-var accElem = document.getElementById("acceleration"),
-    accGravityElem = document.getElementById("acceleration-gravity");
+// Create <p> elements for displaying current device acceleration values in
+var accElem = document.createElement("p"),
+    accGravityElem = document.createElement("p");
 
 // Define an event handler function for processing the device’s acceleration values
 function handleDeviceMotionEvent(event) {
@@ -18,6 +18,10 @@ function handleDeviceMotionEvent(event) {
     accElem.innerHTML = "Current acceleration: " + maxAcc + "m/s^2";
     accGravityElem.innerHTML = "Including gravity: " + maxAccGravity + "m/s^2";
 }
+
+// Add the <p> elements to the page
+document.body.appendChild(accElem);
+document.body.appendChild(accGravityElem);
 
 // Assign the event handler function to execute when the device is moving
 window.addEventListener("devicemotion", handleDeviceMotionEvent, false);

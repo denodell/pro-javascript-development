@@ -16,5 +16,5 @@ function checkMediaQueries() {
 }
 
 // Execute the function on page load and when the screen is resized or its orientation changes
-window.addEventListenener("load", checkMediaQueries, false);
-window.addEventListenener("resize", checkMediaQueries, false);
+window.addEventListener("load", checkMediaQueries, false);
+window.addEventListener("resize", checkMediaQueries, false);

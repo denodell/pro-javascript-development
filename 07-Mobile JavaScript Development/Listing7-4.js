@@ -1,6 +1,7 @@
 // Define an event handler function to execute when the device orientation changes between
 // portrait and landscape
 function onOrientationChange() {
+
     // The device is in portrait orientation if the device is held at 0 or 180 degrees, and in
     // landscape orientation if the device is held at 90 or -90 degrees
     var isPortrait = window.orientation % 180 === 0;
