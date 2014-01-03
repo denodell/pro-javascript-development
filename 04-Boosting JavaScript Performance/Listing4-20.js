@@ -9,8 +9,9 @@ function getFactorial(num) {
 }
 
 // Add the generic memoize capability to the function
-getFactorial = memoize(getFactorial);
+var getFactorialMemoized = memoize(getFactorial);
 
 // Example usage
-getFactorial(50); // Executes the whole function
-getFactorial(50); // Returns a stored value. Avoids full function execution, boosts performance
+alert(getFactorialMemoized(50)); // Executes the whole function
+alert(getFactorialMemoized(50)); // Returns a stored value. Avoids full function execution,
+                                 // boosts performance

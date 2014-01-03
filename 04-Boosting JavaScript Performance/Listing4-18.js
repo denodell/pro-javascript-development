@@ -18,5 +18,5 @@ function getFactorial(num) {
 }
 
 // Example usage
-getFactorial(50); // Executes the whole function
-getFactorial(50); // Returns a stored value. Avoids full function execution, boosts performance
+alert(getFactorial(50)); // Executes the whole function
+alert(getFactorial(50)); // Returns a stored value. Avoids full function execution, boosts performance

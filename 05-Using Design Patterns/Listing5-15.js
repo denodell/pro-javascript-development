@@ -1,6 +1,6 @@
 // Create an empty <form> tag and a new FormField object to represent
 // a <input type="search"> field
-var form = document.createElement('form'),
+var form = document.createElement("form"),
     formField = new FormField("search", "Enter your search term");
 
 // Extend the formField object using our decorators to add maxlength and autocomplete properties

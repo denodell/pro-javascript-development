@@ -28,4 +28,4 @@ endTime = new Date();
 // the most precise measurement we have with JavaScript times
 duration = endTime.getTime() - startTime.getTime();
 
-duration; // Took ~700 ms on my machine
+alert(duration); // Took ~700 ms on my machine

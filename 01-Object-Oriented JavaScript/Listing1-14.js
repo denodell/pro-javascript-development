@@ -23,7 +23,7 @@ Accommodation.prototype.deactivateAlarm = function() {
     alert("Alarm deactivated");
 };
 
-// Define a sub-class for House
+// Define a subclass for House
 function House() {}
 
 // Inherit from Accommodation

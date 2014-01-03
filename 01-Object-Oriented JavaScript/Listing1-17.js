@@ -11,7 +11,7 @@ Accommodation.prototype.alarm = function(note, time) {
     alert(message);
 };
 
-// Define a sub-class for House
+// Define a subclass for House
 function House() {
     this.isLocked = false;
 }
@@ -33,7 +33,7 @@ House.prototype.alarm = function() {
     Accommodation.prototype.alarm.apply(this, arguments);
 };
 
-// Create an object instance from the sub-class and try it out
+// Create an object instance from the subclass and try it out
 var myHouse = new House();
 myHouse.alarm("Activating alarm", new Date()); // Alerts "Alarm activated at Fri Feb 14 2014
                                                // 13:02:56 GMT+0100 (BST) with the note:

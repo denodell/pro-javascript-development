@@ -1,10 +1,3 @@
-// Assume a HTML page containing the following element structure:
-// <ul class="list">
-//     <li class="list-item"><a href="/" class="list-item-link">Home</a></li>
-//     <li class="list-item"><a href="/news" class="list-item-link">News</a></li>
-//     <li class="list-item"><a href="/events" class="list-item-link">Events</a></li>
-// </ul>
-
 // Get a reference to the list element surrounding all the links we wish to
 // assign the event handler to
 var list = document.getElementById("list");
@@ -22,7 +15,7 @@ function onClick(evt) {
     if (clickedElem && clickedElem.tagName === tagNameSought) {
 
         // If it is, we get the link’s ‘href’ value and open this in a new window
-        window.open(clickedElem.getAttribute("href"));
+        window.open(clickedElem.href);
     }
 }
 

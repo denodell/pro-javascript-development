@@ -5,11 +5,11 @@ var field = {
         displayText: "",
 
         getElement: function() {
-            var textField = document.createElement("input");
-            textField.setAttribute("type", this.type);
-            textField.setAttribute("placeholder", this.displayText);
+            var field = document.createElement("input");
+            field.setAttribute("type", this.type);
+            field.setAttribute("placeholder", this.displayText);
 
-            return textField;
+            return field;
         }
     },
 

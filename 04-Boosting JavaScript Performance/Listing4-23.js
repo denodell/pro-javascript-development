@@ -14,5 +14,5 @@ function replaceWithCount(value) {
 }
 
 // Example usage
-"Hello World".replace(/o/g, replaceWithCount); // Hello1 Wo2rld
-"Hello World".replace(/\s/g, replaceWithCount); // Hello 3World
+alert("Hello World".replace(/o/g, replaceWithCount)); // Hello1 Wo2rld
+alert("Hello World".replace(/\s/g, replaceWithCount)); // Hello 3World

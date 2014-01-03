@@ -7,7 +7,7 @@ for (var index = 0; index < myArray.length; index++) {
     // - this is slow
 }
 
-// A subtlely different but much faster version of the same loop
+// A similar but much faster version of the same loop
 for (var index = 0, length = myArray.length; index < length; index++) {
     // The value of myArray.length is computed once and stored in a variable.
     // the value is read back from the variable on each iteration instead of being

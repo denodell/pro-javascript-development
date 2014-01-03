@@ -55,7 +55,7 @@ var Accommodation = Class.create((function() {
              * Establishes whether the accommodation is currently locked or not
              *
              * @method getIsLocked
-             * @return {Boolean} Value indicating lock status - 'true' means locked
+             * @return {Boolean} Value indicating lock status—'true' means locked
              * @example
              *     var myAccommodation = new Accommodation();
              *     myAccommodation.getIsLocked(); // false
@@ -98,7 +98,7 @@ var Accommodation = Class.create((function() {
 var House = Accommodation.extend({
 
     /**
-     * Indicates whether the house is alarmed or not - 'true' means alarmed
+     * Indicates whether the house is alarmed or not—'true' means alarmed
      *
      * @property {Boolean} isAlarmed
      */

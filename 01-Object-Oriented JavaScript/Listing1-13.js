@@ -4,7 +4,7 @@ function Accommodation() {}
 Accommodation.prototype.lock = function() {};
 Accommodation.prototype.unlock = function() {};
 
-// Define a constructor function for what will become our sub-class
+// Define a constructor function for what will become our subclass
 function House(defaults) {
     defaults = defaults || {};
 
@@ -24,7 +24,7 @@ House.prototype = new Accommodation();
 
 // The ‘constructor’ property of an object instance points to the constructor function that
 // created it. However, by mapping everything from Accommodation to House, we also copied over
-// the ‘constructor’ value, which we now need to reset to point to the new sub-class instead.
+// the ‘constructor’ value, which we now need to reset to point to the new subclass instead.
 // If we miss this step, object literals created from the House "class" will report that they
 // were created from the Accommodation "class" instead.
 House.prototype.constructor = House;

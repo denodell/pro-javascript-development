@@ -15,9 +15,9 @@ var Accommodation = Class.create({
     }
 });
 
-// Create a sub-class of Accommodation, using the ‘extend’ method that Class.create adds to any
+// Create a subclass of Accommodation, using the ‘extend’ method that Class.create adds to any
 // "classes" it creates, for simple inheritance. All the public properties and methods from the
-// parent "class" are available to the sub-class, with those of the same name overriding those
+// parent "class" are available to the subclass, with those of the same name overriding those
 // from the parent.
 var House = Accommodation.extend({
     floors: 2,

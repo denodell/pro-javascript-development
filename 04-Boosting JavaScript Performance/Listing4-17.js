@@ -11,6 +11,6 @@ function getFactorial(num) {
 }
 
 // Example usage
-getFactorial(3); // = (1 * 2 * 3) =  6
-getFactorial(4); // = (1 * 2 * 3 * 4) = 24
-getFactorial(5); // = (1 * 2 * 3 * 4 * 5) = 120
+alert(getFactorial(3)); // = (1 * 2 * 3) =  6
+alert(getFactorial(4)); // = (1 * 2 * 3 * 4) = 24
+alert(getFactorial(5)); // = (1 * 2 * 3 * 4 * 5) = 120

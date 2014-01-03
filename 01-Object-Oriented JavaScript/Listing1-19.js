@@ -6,7 +6,7 @@ var Class = (function() {
     // literal representing the public properties and methods for its prototype. A method named
     // ‘initialize’ will be executed as the constructor function. If an optional
     // ‘parentPrototype’ property is passed in, representing a parent "class", it creates the
-    // new class as a sub-class of that.
+    // new class as a subclass of that.
     function create(classDefinition, parentPrototype) {
 
         // Define the constructor function of a new "class", using the ‘initialize’ method from
@@ -19,9 +19,15 @@ var Class = (function() {
             _name;
 
         // If a ‘parentPrototype’ object has been passed in (when inheriting from other
-        // "classes"), inherit everything from the parent to this sub-class
+        // "classes"), inherit everything from the parent to this subclass
         if (parentPrototype) {
             _NewClass.prototype = new parentPrototype.constructor();
+
+            for (_name in parentPrototype) {
+                if (parentPrototype.hasOwnProperty(_name)) {
+                    _NewClass.prototype[_name] = parentPrototype[_name];
+                }
+            }
         }
 
         // Apply the newly provided "class" definition, overriding anything that already exists
@@ -72,7 +78,7 @@ var Class = (function() {
 
         // Define an ‘extend’ method on the "class" itself, pointing to the private ‘extend’
         // function, below, which allows the current "class" to be used as a parent for
-        // a new sub-class
+        // a new subclass
         _NewClass.extend = extend;
 
         return _NewClass;
