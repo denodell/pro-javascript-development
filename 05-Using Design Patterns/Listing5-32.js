@@ -6,14 +6,16 @@
     // string, and a callback function to execute once a response has been received from
     // the server
     function ajaxPost(url, data, callback) {
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest(),
+            LOADED_STATE = 4,
+            OK_STATUS = 200;
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState !== 4) {
+            if (xhr.readyState !== LOADED_STATE) {
                 return;
             }
 
-            if (xhr.status === 200) {
+            if (xhr.status === OK_STATUS) {
 
                 // Execute the supplied callback function once a successful response has been
                 // received from the server

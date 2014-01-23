@@ -11,14 +11,16 @@ var formsMediator = new Mediator(),
 // "form-submit" event is triggered within the formsMediator
 (function(formsMediator) {
     function ajaxPost(url, data, callback) {
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest(),
+            LOADED_STATE = 4,
+            OK_STATUS = 200;
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState !== 4) {
+            if (xhr.readyState !== LOADED_STATE) {
                 return;
             }
 
-            if (xhr.status === 200) {
+            if (xhr.status === OK_STATUS) {
                 callback(xhr.responseText);
             }
         };

@@ -4,41 +4,43 @@ function ajaxCall(type, url, callback, data) {
 
     // Get a reference to an Ajax connection object relevant to the current browser
     var xhr = (function() {
-        try {
+            try {
 
-            // The standard method, used in all modern browsers
-            return new XMLHttpRequest();
-        }
-        catch(e) {}
+                // The standard method, used in all modern browsers
+                return new XMLHttpRequest();
+            }
+            catch(e) {}
 
-        // Older versions of Internet Explorer utilise an ActiveX object installed on the
-        // user's machine
-        try {
-            return new ActiveXObject("Msxml2.XMLHTTP.6.0");
-        }
-        catch(e) {}
+            // Older versions of Internet Explorer utilise an ActiveX object installed on the
+            // user's machine
+            try {
+                return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+            }
+            catch(e) {}
 
-        try {
-            return new ActiveXObject("Msxml2.XMLHTTP.3.0");
-        }
-        catch(e) {}
+            try {
+                return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+            }
+            catch(e) {}
 
-        try {
-            return new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        catch(e) {}
+            try {
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e) {}
 
-        // If no relevant Ajax connection object can be found, throw an error
-        throw new Error("Ajax not supported in this browser.");
-    }());
+            // If no relevant Ajax connection object can be found, throw an error
+            throw new Error("Ajax not supported in this browser.");
+        }()),
+        LOADED_STATE = 4,
+        OK_STATUS = 200;
 
     // Execute the given callback method once a succesful response is received from the server
     xhr.onreadystatechange = function() {
-        if (xhr.readyState !== 4) {
+        if (xhr.readyState !== LOADED_STATE) {
             return;
         }
 
-        if (xhr.status === 200) {
+        if (xhr.status === OK_STATUS) {
             callback(xhr.responseText);
         }
     };
