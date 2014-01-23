@@ -1,7 +1,9 @@
 localStorage["stack"] = localStorage["stack"] || [];
 
 function ajax(url, callback) {
-    var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest(),
+        LOADED_STATE = 4,
+        OK_STATUS = 200;
 
     if (!navigator.onLine) {
 
@@ -10,11 +12,11 @@ function ajax(url, callback) {
         localStorage["stack"].push(JSON.stringify(arguments));
     } else {
         xhr.onreadystatechange = function() {
-            if (xhr.readyState !== 4) {
+            if (xhr.readyState !== LOADED_STATE) {
                 return;
             }
 
-            if (xhr.status === 200) {
+            if (xhr.status === OK_STATUS) {
                 callback(xhr.responseText);
             }
         };

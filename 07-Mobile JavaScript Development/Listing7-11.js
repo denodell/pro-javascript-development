@@ -6,7 +6,9 @@ var stack = [];
 function ajax(url, callback) {
 
     // The XMLHttpRequest class enables Ajax requests to be made in the browser
-    var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest(),
+        LOADED_STATE = 4,
+        OK_STATUS = 200;
 
     // If the browser has gone offline, add the function arguments (the url and callback) to the
     // stack for sending later
@@ -18,13 +20,13 @@ function ajax(url, callback) {
         xhr.onreadystatechange = function() {
 
             // A readyState of 4 indicates that the server response is complete
-            if (xhr.readyState !== 4) {
+            if (xhr.readyState !== LOADED_STATE) {
                 return;
             }
 
             // Execute the callback function if the server responded with a HTTP 200
             // status message ("OK")
-            if (xhr.status === 200) {
+            if (xhr.status === OK_STATUS) {
                 callback(xhr.responseText);
             }
         };
