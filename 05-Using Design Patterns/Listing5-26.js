@@ -1,129 +1,82 @@
-// Define an object listing different levels of logging in a system - info, warn, and error –
-// each indicating something more severe than the last
-var LogLevel = {
-        INFO: 'INFO',
-        WARN: 'WARN',
-        ERROR: 'ERROR'
-    },
-    log;
+// Define a "class" for constructing an object representing a simple form field
+function FormField(type, displayText){
+    this.type = type || "text";
+    this.displayText = displayText || "";
 
-// Define a "class" to create appropriately formatted log messages for different logging levels
-function LogFormatter(logLevel) {
-    this.logLevel = logLevel;
+    // Create and initialize a form field DOM element
+    this.element = document.createElement("input");
+    this.element.setAttribute("type", this.type);
+    this.element.setAttribute("placeholder", this.displayText);
 }
 
-LogFormatter.prototype = {
-
-    // Define a property to store the successor to this object instance in the chain
-    // of responsibility
-    nextInChain: null,
-
-    // Define a method to set the successor in the chain of responsibility
-    setNextInChain: function(next) {
-        this.nextInChain = next;
+// Define two methods for object instances to inherit
+FormField.prototype = {
+    getElement: function() {
+        return this.element;
     },
 
-    // Define a method to create an appropriately formatted log message based on the current
-    // logging level
-    createLogMessage: function(message, logLevel) {
-        var returnValue;
-
-        // If the logging level assigned to the current object instance is the same as that
-        // passed in, then format the log message
-        if (this.logLevel === logLevel) {
-
-            // Format the log message as appropriate according to the logging level
-            if (logLevel === LogLevel.ERROR) {
-                returnValue = logLevel + ": " + message.toUpperCase();
-            } else if (logLevel === LogLevel.WARN) {
-                returnValue = logLevel + ": " + message;
-            } else {
-                returnValue = message;
-            }
-
-        // If the logging level assigned to the current object instance does not match that
-        // passed in, then pass the message onto the next object instance in the chain
-        // of responsibility
-        } else if (this.nextInChain) {
-            returnValue = this.nextInChain.createLogMessage(message, logLevel);
-        }
-
-        return returnValue;
+    isValid: function() {
+        return this.element.value !== "";
     }
 };
 
-// Define a singleton we can use for storing and outputting logs in a system
-var log = (function() {
+// Now replace the FormField "class" with a proxy that implements the same methods, yet delays
+// calling the original constructor function until those methods are actually called, saving on
+// memory resources and improving performance
+// Optionally, use the module pattern to localise the scope of the proxy "class", passing in the
+// original FormField "class" and returning the proxied version of it
+FormField = (function(FormField) {
 
-    // Define a storage array for log messages
-    var logs = [],
+    // Define a proxy constructor, similar to the original FormField "class"
+    function FormFieldProxy(type, displayText) {
+        this.type = type;
+        this.displayText = displayText;
+    }
 
-        // Create object instances representing the three levels of logging - info, warn,
-        // and error
-        infoLogger = new LogFormatter(LogLevel.INFO),
-        warnLogger = new LogFormatter(LogLevel.WARN),
+    FormFieldProxy.prototype = {
 
-        // Set the 'error' logging level to be the first and highest level in our chain of
-        // responsibility, which we'll store in the 'logger' variable
-        errorLogger = logger = new LogFormatter(LogLevel.ERROR);
+        // Define a property to store the reference to the object instance of the original
+        // "class" once instantiated
+        formField: null,
 
-    // Set the chain of responsibility hierarchy using the setNextInChain() method on each
-    // object instance - we're assuming that the 'error' logging level is the most important and
-    // is first in the chain
-
-    // The next in the logging hierarchy after 'error' should be 'warn' as this is
-    // less important
-    errorLogger.setNextInChain(warnLogger);
-
-    // The next in the chain after the 'warn' logging level should be 'info' as this is the
-    // least important level
-    warnLogger.setNextInChain(infoLogger);
-
-    return {
-
-        // Define a method for reading out the stored log messages
-        getLogs: function() {
-            return logs.join("\n");
+        // Define a new 'initialize' method whose task it is to create the object instance of
+        // FormField if it does not already exist and execute the constructor function from the
+        // original "class"
+        initialize: function() {
+            if (!this.formField) {
+                this.formField = new FormField(this.type, this.displayText);
+            }
         },
 
-        // Define a method for formatting a log message appropriately according to its
-        // logging level
-        log: function(message, logLevel) {
+        // Proxy the original methods with new ones that call the intialize() method to
+        // instantiate the FormField "class" only when one of these methods are called
+        getElement: function() {
+            this.initialize();
+            return this.formField.getElement();
+        },
 
-            // We call the createLogMessage() method on the first object instance in our
-            // hierarchy only, which in turn calls those further down the chain if it does not
-            // handle the specified logging level itself. The message passes further down the
-            // chain of responsibility until it reaches an object instance who can handle the
-            // specific logging level
-            var logMessage = logger.createLogMessage(message, logLevel);
-
-            // Add the formatted log message to the storage array
-            logs.push(logMessage);
+        isValid: function() {
+            this.initialize();
+            return this.formField.isValid();
         }
     };
-}());
 
-// Execute the log() method of the 'log' singleton, passing in a message and the logging level
-// The first object in the chain of responsibility handles the 'error' logging level, so the
-// message is not passed down the chain of responsibility and is returned by the
-// errorLogger object
-log.log("Something vary bad happened", LogLevel.ERROR);
+    // Return the proxied "class" to replace the original with
+    return FormFieldProxy;
+}(FormField));
 
-// This message is passed through the errorLogger object to the warnLogger object through the
-// chain of responsibility since the errorLogger object is only told to handle messages with the
-// 'error' logging level
-log.log("Something bad happened", LogLevel.WARN);
+// Create two object instances, both of which will actually be calling the proxy rather than the
+// original "class", meaning the DOM elements will not be created at this stage, saving memory
+// and improving performance
+var textField = new FormField("text", "Enter the first line of your address"),
+    emailField = new FormField("email", "Enter your email address");
 
-// This message is passed through the errorLogger object to the warnLogger object, and onto the
-// infoLogger object which is the one handling 'info' type log messages
-log.log("Something happened", LogLevel.INFO);
+// Add the elements stored in these objects to the current page - at this point the getElement()
+// method is called, which in turn calls initialize(), creating an instance of the original
+// "class" and executing its constructor function which performs the actual DOM element creation
+document.body.appendChild(textField.getElement());
+document.body.appendChild(emailField.getElement());
 
-// Output the stored logs
-alert(log.getLogs());
-
-// Outputs the following:
-/*
-ERROR: SOMETHING VERY BAD HAPPENED
-WARN: Something bad happened
-Something happened
-*/
+// Execute another method from the proxy, this time the object instance of the original "class"
+// won't be recreated and the stored instance will be used instead
+alert(emailField.isValid()); // false

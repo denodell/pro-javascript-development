@@ -1,28 +1,41 @@
-// Define an instance of a memento to allow us to save and restore the state of objects
-var memento = new Memento(),
+// Define a simple "class" to be used to implement the memento pattern. It can be used to
+// provide the ability to save and restore a snapshot of an object in memory. Requires the
+// Class.create() method from Listing 1-19.
+// Certain older browsers (e.g. Internet Explorer 7) do not support the JSON.stringify() and
+// JSON.parse() methods natively. For these, you should include Doug Crockford's json2.js
+// library found at https://github.com/douglascrockford/JSON-js
+var Memento = Class.create({
 
-    // Define an object whose state we wish to be able to save and restore
-    user = {
-        name: "Den Odell",
-        age: 35
-    };
+    // Define an object in memory to store snapshots of other objects under a specified key
+    storage: null,
 
-// Save the current state of the user object using the memento
-memento.saveState("user", user);
+    // Define a method to save the state of any object under a specified key
+    saveState: function(key, obj) {
 
-// Prove that the state of the object is save in JSON format by reading from the storage object
-// of the memento directly
-alert(memento.storage["user"]); // {"name":"Den Odell","age":35}
+        // Convert the supplied object to a string representation in JSON format
+        this.storage[key] = JSON.stringify(obj);
+    },
 
-// Now change the values in the user object as you wish
-user.name = "John Smith";
-user.age = 21;
+    // Define a method to restore and return the state of any object stored under a
+    // specified key
+    restoreState: function(key) {
+        var output = {};
 
-// Output the current state of the user object
-alert(JSON.stringify(user)); // {"name":"John Smith","age":21}
+        // If the supplied key exists, locate the object stored there
+        if (this.storage.hasOwnProperty(key)) {
+            output = this.storage[key];
 
-// Whenever you wish to restore the last saved state of the user object, simply call the restoreState() method of the memento
-user = memento.restoreState("user");
+            // Convert the stored value from a JSON string to a proper object
+            output = JSON.parse(output);
+        }
 
-// Output the new value of the user object, which has been restored to its last saved state
-alert(JSON.stringify(user)); // {"name":"Den Odell","age":35}
+        return output;
+    },
+
+    initialize: function() {
+
+        // Initialize the storage property to a new, empty object in order to prevent
+        // the object being shared by reference between all instances of this "class"
+        this.storage = {};
+    }
+});

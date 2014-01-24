@@ -1,110 +1,70 @@
-// Define a module for Ajax communication, with a dependency on the observer object
-// from Listing 5-31
-(function(observer) {
+// Define an object containing global publish(), subscribe(), and unsubscribe() methods to
+// implement the Observer pattern
+var observer = (function() {
 
-    // Define a function for performing an Ajax POST based on a supplied URL, form-encoded data
-    // string, and a callback function to execute once a response has been received from
-    // the server
-    function ajaxPost(url, data, callback) {
-        var xhr = new XMLHttpRequest(),
-            LOADED_STATE = 4,
-            OK_STATUS = 200;
+    // Create an object for storing registered events in by name along with the associated
+    // callback functions for any part of the full code base that subscribes to those
+    // event names
+    var events = {};
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState !== LOADED_STATE) {
-                return;
+    return {
+
+        // Define the subscribe() method, which stores a function along with its associated
+        // event name to be called at some later point when the specific event by that name
+        // is triggered
+        subscribe: function(eventName, callback) {
+
+            // If an event by the supplied name has not already been subscribed to, create an
+            // array property named after the event name within the events object to store
+            // functions to be called at a later time when the event by that name is triggered
+            if (!events.hasOwnProperty(eventName)) {
+                events[eventName] = [];
             }
 
-            if (xhr.status === OK_STATUS) {
+            // Add the supplied callback function to the list associated to the specific
+            // event name
+            events[eventName].push(callback);
+        },
 
-                // Execute the supplied callback function once a successful response has been
-                // received from the server
-                callback(xhr.responseText);
+        // Define the unsubscribe() method, which removes a given function from the list of
+        // functions to be executed when the event by the supplied name is triggered
+        unsubscribe: function(eventName, callback) {
+            var index = 0,
+                length = 0;
+
+            if (events.hasOwnProperty(eventName)) {
+                length = events[eventName].length;
+
+                // Cycle through the stored functions for the given event name and remove the
+                // function matching that supplied from the list
+                for (; index < length; index++) {
+                    if (events[eventName][index] === callback) {
+                        events[eventName].splice(index, 1);
+                        break;
+                    }
+                }
             }
-        };
+        },
 
-        xhr.open("POST", url);
+        // Define the publish() method, which executes all functions associated with the given
+        // event name in turn, passing to each the same optional data passed as arguments to
+        // the method
+        publish: function(eventName) {
 
-        // Inform the server that we will be sending form-encoded data, where names and values
-        // are separated by the equals sign (=) character, and name/value pairs are separated by
-        // the ampersand (&) character
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // Store all parameters but the first passed to this function as an array
+            var data = Array.prototype.slice.call(arguments, 1),
+                index = 0,
+                length = 0;
 
-        // POST the data to the server
-        xhr.send(data);
-    }
+            if (events.hasOwnProperty(eventName)) {
+                length = events[eventName].length;
 
-    // Subscribe to the global, custom "form-submit" event and, when this event is triggered by
-    // another module in the code base, make a Ajax POST request to the server using the
-    // supplied URL and data. Trigger the "ajax-response" event when complete, passing in the
-    // server's response from the Ajax call
-    observer.subscribe("form-submit", function(url, formData) {
-        ajaxPost(url, formData, function(response) {
-
-            // Trigger the global "ajax-response" event, passing along the data returned from
-            // the server during the Ajax POST
-            observer.publish("ajax-response", response);
-        });
-    });
-}(observer));
-
-// Define a module for handling submission of a simple form on the page containing text fields
-// only with an ID of "my-form". Note that neither of the modules in this code listing reference
-// each other, they only reference the observer object which handles all communication between
-// modules in the system. Each module is said to be "loosely-coupled" as it has no hardcoded
-// dependency on any other module
-(function(observer) {
-
-    // Get a reference to a form on the current HTML page with ID "my-form"
-    var form = document.getElementById("my-form"),
-
-        // Get the "action" attribute value from the form, which will be the URL we perform an
-        // Ajax POST to
-        action = form.action,
-        data = [],
-
-        // Get a reference to all <input> fields within the form
-        fields = form.getElementsByTagName("input"),
-        index = 0,
-        length = fields.length,
-        field,
-
-        // Create a HTML <p> tag for use as a thank you message after form submission has
-        // taken place
-        thankYouMessage = document.createElement("p");
-
-    // Define a function to execute on submission of the form which uses the observer pattern to
-    // submit the form field data over Ajax
-    function onFormSubmit(e) {
-
-        // Prevent the default behavior of the submit event, meaning a normal in-page HTML form
-        // submission will not occur
-        e.preventDefault();
-
-        // Loop through all <input> tags on the page, creating an array of name/value pairs of
-        // the data entered into the form
-        for (; index < length; index++) {
-            field = fields[index];
-
-            data.push(escape(field.name) + "=" + escape(field.value));
+                // Cycle through all of the functions associated with the given event name and
+                // execute them each in turn, passing along any supplied parameters
+                for (; index < length; index++) {
+                    events[eventName][index].apply(this, data);
+                }
+            }
         }
-
-        // Trigger the global "form-submit" event on the observer object, passing it the URL to
-        // use for the Ajax POST and the form data to be sent. The Ajax communication module is
-        // listening for this event and will handle everything pertaining to the submission of
-        // that data to the server.
-        observer.publish("form-submit", action, data.join("&"));
-    }
-
-    // Wire up the onFormSubmit() function to the "submit" event of the form
-    form.addEventListener("submit", onFormSubmit, false);
-
-    // Subscribe to the global, custom "ajax-response" event, and use the server's response data
-    // sent along with the event to populate a Thank You message to display on the page beside
-    // the form
-    observer.subscribe("ajax-response", function(response) {
-        thankYouMessage.innerHTML = "Thank you for your form submission.<br>The server responded with: " + response;
-
-        form.parentNode.appendChild(thankYouMessage);
-    });
-}(observer));
+    };
+}());

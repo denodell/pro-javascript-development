@@ -1,88 +1,79 @@
-// Define a generic iterator "class" for iterating/looping over arrays or object-like data
-// structures. Requires the Class.create() method from Listing 1-19.
-var Iterator = Class.create({
+// Create a singleton for allowing execution of other methods and providing the ability to
+// 'undo' the actions of those methods
+var command = (function() {
 
-    // Define storage for the current index and total size of the data to be iterated over
-    data: {},
-    index: 0,
-    length: 0,
-    keys: [],
-    isArray: false,
+    // Create an array to store the 'undo' commands in order, also known as a 'stack'
+    var undoStack = [];
 
-    // Define the code used to initialize instances of this "class"
-    initialize: function(data) {
-        var key;
+    return {
 
-        // Store the supplied data in the 'data' property
-        this.data = data || {};
+        // Define a method to execute a supplied function parameter, storing a second function
+        // parameter for later execution to 'undo' the action of the first function
+        execute: function(command, undoCommand) {
+            if (command && typeof command === "function") {
 
-        // Store an indicator to show whether the supplied data is an array or an object
-        this.isArray = Object.prototype.toString.call(data) === "[object Array]";
-
-        if (this.isArray) {
-
-            // If the supplied data is an array, store its length for fast access
-            this.length = data.length;
-        } else {
-
-            // If object data is supplied, store each property name in an array
-            for (key in data) {
-                if (data.hasOwnProperty(key)) {
-                    this.keys.push(key);
-                }
+                // If the first parameter is a function, execute it, and add the second
+                // parameter to the stack in case the command needs to be reversed at some point
+                // in future
+                command();
+                undoStack.push(undoCommand);
             }
+        },
 
-            // The length of the property name array is the length of the data to iterate over,
-            // so store this
-            this.length = this.keys.length;
+        // Define a method to reverse the execution of the last command executed, using the
+        // stack of 'undo' commands
+        undo: function() {
+
+            // Remove and store the last command from the stack, which will be the one most
+            // recently added to it. This will remove that command from the stack, reducing the
+            // size of the array
+            var undoCommand = undoStack.pop();
+            if (undoCommand && typeof undoCommand === "function") {
+
+                // Check the command is a valid function and then execute it to effectively
+                // 'undo' the last command
+                undoCommand();
+            }
         }
-    },
+    };
+}());
 
-    // Define a method to reset the index, effectively rewinding the iterator back to the start
-    // of the data
-    rewind: function() {
-        this.index = 0;
-    },
+// Wrap each piece of functionality that can be 'undone' in a call to the command.execute()
+// method, passing the command to execute immediately as the first parameter, and the function
+// to execute to reverse that command as the second parameter which will be stored until such
+// point as it is needed
+command.execute(function() {
 
-    // Define a method to return the value stored at the current index position of the iterator
-    current: function() {
-        return this.isArray ? this.data[this.index] : this.data[this.keys[this.index]];
-    },
+    // Using the code from Listing 5-28, set a cookie - this will be executed immediately
+    cookie.execute("set", ["name", "Den Odell"]);
+}, function() {
 
-    // Define a method to return the value stored at the current index position of the iterator,
-    // and then advance the index pointer to the next item of data
-    next: function() {
-        var value = this.current();
-        this.index = this.index + 1;
-        return value;
-    },
-
-    // Define a method to indicate whether the index position is at the end of the data
-    hasNext: function() {
-        return this.index < this.length;
-    },
-
-    // Define a method to reset the index of the iterator to the start of the data and return
-    // the first item of data
-    first: function() {
-        this.rewind();
-        return this.current();
-    },
-
-    // Define a method to iterate, or loop, over each item of data, executing a callback
-    // function each time, passing in the current data item as the first parameter to
-    // that function
-    each: function(callback) {
-        callback = typeof callback === "function" ? callback : function() {};
-
-        // Iterate using a for loop, starting at the beginning of the data (achieved using the
-        // rewind() method) and looping until there is no more data to iterate over (indicated
-        // by the hasNext() method)
-        for (this.rewind(); this.hasNext();) {
-
-            // Execute the callback function each time through the loop, passing in the current
-            // data item value and incrementing the loop using the next() method
-            callback(this.next());
-        }
-    }
+    // The reverse operation of setting a cookie is removing that cookie - this operation will
+    // be stored for later execution if the command.undo() method is called
+    cookie.execute("remove", ["name"]);
 });
+
+// Execute a second piece of functionality, setting a second cookie
+command.execute(function() {
+    cookie.execute("set", ["userID", "1234567890"]);
+}, function() {
+    cookie.execute("remove", ["userID"]);
+});
+
+// Check the value of the two cookies
+alert(cookie.get("name")); // Den Odell
+alert(cookie.get("userID")); // 1234567890
+
+// Reverse the previous operation, removing the 'userID' cookie
+command.undo();
+
+// Check the value of the two cookies
+alert(cookie.get("name")); // Den Odell
+alert(cookie.get("userID")); // undefined, since the cookie has now been removed
+
+// Reverse the first operation, removing the 'name' cookie
+command.undo();
+
+// Check the value of the two cookies
+alert(cookie.get("name")); // undefined, since the cookie has now been removed
+alert(cookie.get("userID")); // undefined

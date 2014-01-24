@@ -1,4 +1,4 @@
-// The ajaxCall method can make cross-browser Ajax calls as follows
+// The ajaxCall() function can make cross-browser Ajax calls as follows
 ajaxCall("get", "/", function(response) {
     alert("Response recieved: " + response);
 });

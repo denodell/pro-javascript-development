@@ -1,70 +1,50 @@
-// Define an object containing global publish(), subscribe(), and unsubscribe() methods to
-// implement the Observer pattern
-var observer = (function() {
+// Define an object and an array which we can use to iterate over
+var user = {
+        id: 1234567890,
+        name: "Den Odell",
+        occupation: "Head of Web Development",
+        company: "AKQA"
+    },
+    daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 
-    // Create an object for storing registered events in by name along with the associated
-    // callback functions for any part of the full code base that subscribes to those
-    // event names
-    var events = {};
+    // Create instances of the Iterator "class" using these two different types of data
+    userIterator = new Iterator(user),
+    daysOfWeekIterator = new Iterator(daysOfWeek),
 
-    return {
+    // Create three arrays for storing outputs of interations to be displayed later
+    output1 = [],
+    output2 = [],
+    output3 = [];
 
-        // Define the subscribe() method, which stores a function along with its associated
-        // event name to be called at some later point when the specific event by that name
-        // is triggered
-        subscribe: function(eventName, callback) {
+// The userIterator is ready for use, so let's use a for loop to iterate over the stored data –
+// note how we don't need to supply the first argument to the for loop as the data is already
+// reset and initialized in its start position, and we don't require the last argument since the
+// next() method call within the for loop body performs the advancement of the index position
+// for us
+for (; userIterator.hasNext();) {
+    output1.push(userIterator.next());
+}
 
-            // If an event by the supplied name has not already been subscribed to, create an
-            // array property named after the event name within the events object to store
-            // functions to be called at a later time when the event by that name is triggered
-            if (!events.hasOwnProperty(eventName)) {
-                events[eventName] = [];
-            }
+// Since we iterated over an object, the resulting data consists of the values stored in each of
+// the object's properties
+alert(output1.join(", ")); // 1234567890, Den Odell, Head of Web Development, AKQA
 
-            // Add the supplied callback function to the list associated to the specific
-            // event name
-            events[eventName].push(callback);
-        },
+// Before iterating over the same data again, its index must be rewound to the start
+userIterator.rewind();
 
-        // Define the unsubscribe() method, which removes a given function from the list of
-        // functions to be executed when the event by the supplied name is triggered
-        unsubscribe: function(eventName, callback) {
-            var index = 0,
-                length = 0;
+// Iterate over the object properties using a while loop, which continues to execute until the
+// iterator has no further data items
+while (userIterator.hasNext()) {
+    output2.push(userIterator.next());
+}
 
-            if (events.hasOwnProperty(eventName)) {
-                length = events[eventName].length;
+alert(output2.join(", ")); // 1234567890, Den Odell, Head of Web Development, AKQA
 
-                // Cycle through the stored functions for the given event name and remove the
-                // function matching that supplied from the list
-                for (; index < length; index++) {
-                    if (events[eventName][index] === callback) {
-                        events[eventName].splice(index, 1);
-                        break;
-                    }
-                }
-            }
-        },
+// Iterate over the array data using the Iterator's built-in each() method - using this
+// approach requires no manual work to manipulate the position of the index, simply pass a
+// callback function
+daysOfWeekIterator.each(function(item) {
+    output3.push(item);
+});
 
-        // Define the publish() method, which executes all functions associated with the given
-        // event name in turn, passing to each the same optional data passed as arguments to
-        // the method
-        publish: function(eventName) {
-
-            // Store all parameters but the first passed to this function as an array
-            var data = Array.prototype.slice.call(arguments, 1),
-                index = 0,
-                length = 0;
-
-            if (events.hasOwnProperty(eventName)) {
-                length = events[eventName].length;
-
-                // Cycle through all of the functions associated with the given event name and
-                // execute them each in turn, passing along any supplied parameters
-                for (; index < length; index++) {
-                    events[eventName][index].apply(this, data);
-                }
-            }
-        }
-    };
-}());
+alert(output3.join(", ")); // Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday

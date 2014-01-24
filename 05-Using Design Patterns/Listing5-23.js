@@ -1,78 +1,40 @@
-// Define a namespace which we will populate with code modules
-var myData = {};
+// The module pattern is distinctive as it uses a combination of a self-executing anonymous
+// function closure, with any dependencies passed in as parameters, and an optional return
+// statement which allows code created within the closure to be made available externally
 
-// Ajax module, added to the myData namespace through augmentation
-// The namespace is passed in as a parameter and, once it has been augmented with new method, is
-// finally returned back, overwriting the original namespace with the new, augmented one
-myData = (function(myNamespace, undefined) {
+// Our only dependency is the 'document' object which contains the browser's cookie data. As an
+// added security measure, we can include a final listed parameter named 'undefined' to which we
+// never pass a value. This ensures that the variable named 'undefined' always contains an
+// undefined value provided we always ensure we never pass in a value to this parameter.
+// Otherwise it might be possible for other code, whether through malicious reasons or
+// otherwise, to overwrite this value as it is not a reserved word in the language causing all
+// kinds of havoc to the way our code behaves.
+var cookie = (function(document, undefined) {
+    var allCookies = document.cookie.split(";"),
+        cookies = {},
+        cookiesIndex = 0,
+        cookiesLength = allCookies.length,
+        cookie;
 
-    // Add an 'ajax' object property to the namespace and populate it with related methods
-    myNamespace.ajax = {
-        get: function(url, callback) {
-            var xhr = new XMLHttpRequest(),
-                LOADED_STATE = 4,
-                OK_STATUS = 200;
+    for (; cookiesIndex < cookiesLength; cookiesIndex++) {
+        cookie = allCookies[cookiesIndex].split("=");
 
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState !== LOADED_STATE) {
-                    return;
-                }
+        cookies[unescape(cookie[0])] = unescape(cookie[1]);
+    }
 
-                if (xhr.status === OK_STATUS) {
-                    callback(xhr.responseText);
-                }
-            };
-
-            xhr.open("GET", url);
-            xhr.send();
-        }
-    };
-
-    // Return the new, augmented namespace back to the myData variable
-    return myNamespace;
-
-// We can use the following defence mecahnism, which reverts to an empty object if the myData
-// namespace object does not yet exist. This is useful when you have modules split over several
-// files in a large namespace and you're unsure if the namespace passed in has been initialized
-// elsewhere before
-}(myData || {}));
-
-// Cookies module, added to the myData namespace through augmentation
-// As before, the namespace is passed in, augmented, and then returned, overwriting the original
-// namespace object. At this point, the myData namespace contains the Ajax module code
-myData = (function(myNamespace, undefined) {
-
-    // Add a 'cookies' object property to the namespace and populate it with related methods
-    myNamespace.cookies = {
+    // Return any methods, properties or values that you wish to make available to the rest of
+    // your code base. In this case, the following two methods will be exposed through the
+    // 'cookie' variable, creating a singleton
+    return {
         get: function(name) {
-            var output = "",
-                escapedName = escape(name),
-                start = document.cookie.indexOf(escapedName + "="),
-                end = document.cookie.indexOf(";", start);
-
-            end = end === -1 ? (document.cookie.length - 1) : end;
-
-            if (start >= 0) {
-                output = document.cookie.substring(start + escapedName.length + 1, end);
-            }
-
-            return unescape(output);
+            return cookies[name] || "";
         },
+
         set: function(name, value) {
+            cookies[name] = value;
             document.cookie = escape(name) + "=" + escape(value);
         }
     };
 
-    return myNamespace;
-}(myData || {}));
-
-// Execute methods directly through the myData namespace object, which now contains both Ajax
-// and Cookies modules
-myData.ajax.get("/", function(response) {
-    alert("Received the following response: " + response);
-});
-myData.cookies.set("userID", "1234567890");
-myData.cookies.set("name", "Den Odell");
-
-alert(myData.cookies.get("userID")); // 1234567890
-alert(myData.cookies.get("name")); // Den Odell
+// Pass in any dependencies
+}(document));
