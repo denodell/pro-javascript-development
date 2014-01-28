@@ -1,0 +1,47 @@
+<!--
+The View is now a simple HTML document - it could be created through DOM elements in JavaScript
+but it does not need to be any more. The View is connected to the ViewModel via HTML5 data
+attributes on certain HTML tags which are then bound to specific behaviors in the ViewModel as
+required
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Model-View-ViewModel (MVVM) Example</title>
+</head>
+<body>
+    <!--
+    The <form> tag has a specific HTML5 data attribute indicating that when submitted it should
+    be bound to an addEmail() method in the ViewModel
+    -->
+    <form data-submit="addEmail">
+        <input type="text" placeholder="New email address">
+        <button type="submit">Add</button>
+    </form>
+
+    <!--
+    The <ul> list has a specific HTML5 data attribute indicating that the tags within should be
+    looped through for each item in the stored Model data. So if the Model contained three email
+    addresses, three <li> tags would be produced and rendered in place of the one templated <li>
+    tag that currently exists
+    -->
+    <ul data-loop>
+        <li>
+            <!--
+            We will use the data-text attribute to indicate that the ViewModel should replace
+            the tag contents with the individual email address represented as we loop through
+            the stored Model data
+            -->
+            <span data-text></span>
+
+            <!--
+            We use the data-click attribute as we used data-submit previously on the <form>
+            tag, i.e. to execute a specific method exposed by the ViewModel when the button is
+            clicked
+            -->
+            <button data-click="removeEmail">Remove</button>
+        </li>
+    </ul>
+</body>
+</html>
