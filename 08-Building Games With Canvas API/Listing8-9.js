@@ -1,53 +1,81 @@
-function Log(options) {
+function TurtleBase(options) {
     options = options || {};
 
-    MoverAndWrapper.call(this, {
+    this.options = {
         startRow: options.startRow || 0,
-        startColumn: options.startColumn || 1,
-        direction: direction.RIGHT,
-        speed: options.speed || 3,
-        spritePath: options.spritePath || "tree_1.png",
-        spriteWidth: options.spriteWidth || 80
+        startColumn: options.startColumn || 0,
+        spritePath: options.spritePath || "blank.gif",
+        spriteWidth: options.spriteWidth || 0,
+        spriteHeight: options.spriteHeight || 80,
+        animationSequence: options.animationSequence || [0]
+    };
+
+    this.sprite = document.createElement("img");
+    this.sprite.src = this.options.spritePath;
+
+    this.reset();
+}
+
+TurtleBase.prototype = {
+    sprite: null,
+    refreshRate: 5,
+    currentRefreshFrame: 0,
+    currentFrameIndex: 0,
+    top: 0,
+    left: 0,
+
+    reset: function() {
+        this.top = GameBoard.getRowPosition(this.options.startRow);
+        this.left = GameBoard.getColumnPosition(this.options.startColumn);
+    },
+
+    isUnderwater: function() {
+        return this.currentFrameIndex === 3;
+    },
+
+    renderAt: function(left, top) {
+        context.drawImage(this.sprite, this.options.animationSequence[this.currentFrameIndex] * this.options.spriteWidth, 0, this.options.spriteWidth, this.options.spriteHeight, left, top, this.options.spriteWidth, this.options.spriteHeight);
+    },
+
+    moveTo: function(left) {
+        this.left = left;
+    },
+
+    getPosition: function() {
+        return {
+            left: this.left,
+            right: this.left + this.options.spriteWidth
+        };
+    },
+
+    getWidth: function() {
+        return this.options.spriteWidth;
+    }
+};
+
+function Turtle(startColumn) {
+    TurtleBase.call(this, {
+        spritePath: "turtle_2_sprites.png",
+        startRow: 4,
+        startColumn: startColumn,
+        spriteWidth: 130,
+        animationSequence: [0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 2, 1, 0, 0, 0]
     });
 }
 
-Log.prototype = new MoverAndWrapper();
-Log.prototype.constructor = Log;
+Turtle.prototype = new TurtleBase();
+Turtle.prototype.constructor = Turtle;
 
-function ShortLog(startColumn) {
-    Log.call(this, {
-        startColumn: startColumn || 0,
-        startRow: 6,
-        spriteWidth: 190,
-        speed: 6
+function Turtle2(startColumn) {
+    TurtleBase.call(this, {
+        spritePath: "turtle_3_sprites.png",
+        startRow: 7,
+        startColumn: startColumn,
+        spriteWidth: 198,
+        spriteHeight: 68,
+        animationSequence: [0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0]
     });
 }
 
-ShortLog.prototype = new Log();
-ShortLog.prototype.constructor = ShortLog;
-
-function MediumLog(startColumn) {
-    Log.call(this, {
-        startColumn: startColumn || 0,
-        startRow: 3,
-        spritePath: "tree_3.png",
-        spriteWidth: 254,
-        speed: 5
-    });
-}
-
-MediumLog.prototype = new Log();
-MediumLog.prototype.constructor = MediumLog;
-
-function LongLog(startColumn) {
-    Log.call(this, {
-        startColumn: startColumn || 0,
-        startRow: 5,
-        spritePath: "tree_2.png",
-        spriteWidth: 392,
-        speed: 4
-    });
-}
-
-LongLog.prototype = new Log();
-LongLog.prototype.constructor = LongLog;
+Turtle2.prototype = new TurtleBase();
+Turtle2.prototype.constructor = Turtle2;

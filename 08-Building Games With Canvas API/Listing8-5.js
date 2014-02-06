@@ -110,6 +110,8 @@ var Frog = (function() {
                     currentPosition.top = GameBoard.getCharacterBounds().top;
                 }
 
+                observer.publish("frog-moved");
+
                 animFrame = 1;
                 setTimeout(function() {
                     animFrame = 0;

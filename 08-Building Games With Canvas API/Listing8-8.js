@@ -1,53 +1,53 @@
-var Cars = (function() {
-    var vehicles = [
-        new Truck(1), new Truck(7),
-        new RacingCarType2(1), new RacingCarType2(7),
-        new RoadCar(1), new RoadCar(7),
-        new Bulldozer(1), new Bulldozer(5), new Bulldozer(9),
-        new RacingCar(1), new RacingCar(5), new RacingCar(9)
-    ];
+function Log(options) {
+    options = options || {};
 
-    return {
-        render: function() {
-            var index = 0,
-                length = vehicles.length;
+    MoverAndWrapper.call(this, {
+        startRow: options.startRow || 0,
+        startColumn: options.startColumn || 1,
+        direction: direction.RIGHT,
+        speed: options.speed || 3,
+        spritePath: options.spritePath || "tree_1.png",
+        spriteWidth: options.spriteWidth || 80
+    });
+}
 
-            for (; index < length; index++) {
-                vehicles[index].render();
-            }
-        },
+Log.prototype = new MoverAndWrapper();
+Log.prototype.constructor = Log;
 
-        pause: function() {
-            var index = 0,
-                length = vehicles.length;
+function ShortLog(startColumn) {
+    Log.call(this, {
+        startColumn: startColumn || 0,
+        startRow: 6,
+        spriteWidth: 190,
+        speed: 6
+    });
+}
 
-            for (; index < length; index++) {
-                vehicles[index].pause();
-            }
-        },
+ShortLog.prototype = new Log();
+ShortLog.prototype.constructor = ShortLog;
 
-        isCollision: function(frogPosition, frogDimensions) {
-            var index = 0,
-                length = vehicles.length,
-                isCollision = false;
+function MediumLog(startColumn) {
+    Log.call(this, {
+        startColumn: startColumn || 0,
+        startRow: 3,
+        spritePath: "tree_3.png",
+        spriteWidth: 254,
+        speed: 5
+    });
+}
 
-            for (; index < length; index++) {
-                if (vehicles[index].isCollision(frogPosition, frogDimensions)) {
-                    isCollision = true;
-                    break;
-                }
-            }
+MediumLog.prototype = new Log();
+MediumLog.prototype.constructor = MediumLog;
 
-            return isCollision;
-        },
+function LongLog(startColumn) {
+    Log.call(this, {
+        startColumn: startColumn || 0,
+        startRow: 5,
+        spritePath: "tree_2.png",
+        spriteWidth: 392,
+        speed: 4
+    });
+}
 
-        reset: function() {
-            var index = 0,
-                length = vehicles.length;
-
-            for (; index < length; index++) {
-                vehicles[index].reset();
-            }
-        }
-    };
-}());
+LongLog.prototype = new Log();
+LongLog.prototype.constructor = LongLog;

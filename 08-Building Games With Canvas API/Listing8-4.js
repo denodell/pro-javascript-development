@@ -8,8 +8,7 @@ var GameBoard = (function() {
         gridSquare = {
             width: 80,
             height: 80
-        },
-        font = "67px Arcade Classic";
+        };
 
     background.onload = function() {
         isReady = true;
@@ -23,25 +22,6 @@ var GameBoard = (function() {
 
     function renderBackground() {
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
-    }
-
-    function renderScore() {
-        context.save();
-        context.textAlign = "end";
-
-        context.font = font;
-        context.fillStyle = "#DEDEF7";
-        context.fillText("1-UP", 256, 40);
-
-        context.fillStyle = "#F00";
-        context.fillText("00000", 256, 80);
-
-        context.fillStyle = "#DEDEF7";
-        context.fillText("HI-SCORE", 576, 40);
-
-        context.fillStyle = "#F00";
-        context.fillText("00000", 512, 80);
-        context.restore();
     }
 
     function renderLives() {
@@ -58,25 +38,9 @@ var GameBoard = (function() {
         var timeRemainingAsPercentage = Game.getTimeRemainingAsPercentage();
 
         context.save();
-        context.textAlign = "end";
-
-        context.font = font;
-        context.fillStyle = "#FF0";
-        context.fillText("TIME", canvas.width, canvas.height);
 
         context.fillStyle = "#21DE00";
         context.fillRect((1 - timeRemainingAsPercentage) * 10 * gridSquare.width, 15.5 * gridSquare.height, timeRemainingAsPercentage * 10 * gridSquare.width, gridSquare.height / 2);
-
-        context.restore();
-    }
-
-    function renderGameOver() {
-        context.save();
-
-        context.font = font;
-        context.fillStyle = "#DEDEF7";
-        context.textAlign = "center";
-        context.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
 
         context.restore();
     }
@@ -85,14 +49,8 @@ var GameBoard = (function() {
         render: function() {
             if (isReady) {
                 renderBackground();
-
-                renderScore();
-                renderTimeRemaining();
                 renderLives();
-
-                if (Game.getIsOver()) {
-                    renderGameOver();
-                }
+                renderTimeRemaining();
             }
         },
 
@@ -119,6 +77,83 @@ var GameBoard = (function() {
                 top: 2 * gridSquare.height,
                 bottom: 14 * gridSquare.height
             };
+        }
+    };
+}());
+
+var TextLayer = (function() {
+    var font = "67px Arcade Classic",
+        gridHeight = 80,
+        gameIsWon = false;
+
+    observer.subscribe("game-won", function() {
+        gameIsWon = true;
+    });
+
+    function renderScore() {
+        context.save();
+        context.textAlign = "end";
+
+        context.font = font;
+        context.fillStyle = "#DEDEF7";
+        context.fillText("1-UP", GameBoard.getColumnPosition(3), gridHeight / 2);
+
+        context.fillStyle = "#F00";
+        context.fillText(Game.getScore(), GameBoard.getColumnPosition(3), gridHeight);
+
+        context.fillStyle = "#DEDEF7";
+        context.fillText("HI-SCORE", GameBoard.getColumnPosition(8), gridHeight / 2);
+
+        context.fillStyle = "#F00";
+        context.fillText(Game.getHighScore(), GameBoard.getColumnPosition(7.5), gridHeight);
+        context.restore();
+    }
+
+    function renderGameOver() {
+        context.save();
+
+        context.font = font;
+        context.fillStyle = "#DEDEF7";
+        context.textAlign = "center";
+        context.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+
+        context.restore();
+    }
+
+    function renderGameIsWon() {
+        context.save();
+
+        context.font = font;
+        context.fillStyle = "#F00";
+        context.textAlign = "center";
+        context.fillText("YOU WIN!", canvas.width / 2, canvas.height / 2);
+
+        context.restore();
+    }
+
+    function renderTimeLabel() {
+        context.save();
+        context.textAlign = "end";
+
+        context.font = font;
+        context.fillStyle = "#FF0";
+        context.fillText("TIME", canvas.width, canvas.height);
+
+        context.restore();
+    }
+
+    return {
+        render: function() {
+            renderScore();
+            renderTimeLabel();
+
+            if (Game.getIsOver()) {
+                renderGameOver();
+            }
+
+            if (gameIsWon) {
+                renderGameIsWon();
+            }
         }
     };
 }());
