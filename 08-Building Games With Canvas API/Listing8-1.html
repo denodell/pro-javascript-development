@@ -14,7 +14,10 @@
         font-style: normal;
     }
 
-    #canvas {
+    .canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
         border: 2px solid #000;
         width: 480px;
         height: 640px;
@@ -22,7 +25,9 @@
     </style>
 </head>
 <body>
-    <canvas id="canvas" width="960" height="1280"></canvas>
+    <canvas id="background-canvas" class="canvas" width="960" height="1280"></canvas>
+    <canvas id="canvas" class="canvas" width="960" height="1280"></canvas>
+
     <script src="Listing8-3.js"></script>
     <script src="Listing8-4.js"></script>
     <script src="Listing8-5.js"></script>
@@ -31,9 +36,5 @@
     <script src="Listing8-8.js"></script>
     <script src="Listing8-9.js"></script>
     <script src="Listing8-10.js"></script>
-    <script src="Listing8-11.js"></script>
-    <script src="Listing8-12.js"></script>
-    <script src="Listing8-13.js"></script>
-    <script src="Listing8-14.js"></script>
 </body>
 </html>

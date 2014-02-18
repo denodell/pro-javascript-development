@@ -1,170 +1,202 @@
-var Frog = (function() {
-    var currentDirection = direction.UP,
-        characterSprite = new Image(),
-        spriteWidth = 80,
-        spriteHeight = 80,
-        gridSize = GameBoard.getGridSize(),
-        gridWidth = gridSize.width,
-        gridHeight = gridSize.height,
-        animFrame = 0,
-        animFrameRate = 150,
-        startPosition = {
-            left: GameBoard.getColumnPosition(6),
-            top: GameBoard.getRowPosition(14)
+var GameBoard = (function() {
+    var bgCanvas = document.getElementById("background-canvas"),
+        bgContext = bgCanvas.getContext("2d"),
+        background = document.createElement("img"),
+        lives,
+        rows = 15,
+        columns = 12,
+        gridSquare = {
+            width: 80,
+            height: 80
         },
-        currentPosition = {
-            left: startPosition.left,
-            top: startPosition.top
-        },
-        sprites = {},
-        _isDead = false;
+        _timeRemainingAsPercentage = 100;
 
-    sprites[direction.UP] = [{
-        left: 0,
-        top: 0
-    }, {
-        left: spriteWidth,
-        top: 0
-    }];
+    function Life(left, top) {
+        Frogger.ImageSprite.call(this, left, top);
+    }
 
-    sprites[direction.RIGHT] = [{
-        left: 2 * spriteWidth,
-        top: 0
-    }, {
-        left: 3 * spriteWidth,
-        top: 0
-    }];
+    Life.prototype = new Frogger.ImageSprite();
+    Life.prototype.spriteLeft = 720;
+    Life.prototype.spriteTop = 80;
+    Life.prototype.width = 40;
+    Life.prototype.height = 40;
 
-    sprites[direction.DOWN] = [{
-        left: 4 * spriteWidth,
-        top: 0
-    }, {
-        left: 5 * spriteWidth,
-        top: 0
-    }];
+    lives = [new Life(0, rows * gridSquare.height), new Life(40, rows * gridSquare.height), new Life(80, rows * gridSquare.height), new Life(120, rows * gridSquare.height), new Life(160, rows * gridSquare.height)];
 
-    sprites[direction.LEFT] = [{
-        left: 6 * spriteWidth,
-        top: 0
-    }, {
-        left: 7 * spriteWidth,
-        top: 0
-    }];
+    background.onload = function() {
+        bgContext.drawImage(background, 0, 0, bgCanvas.width, bgCanvas.height);
+    };
+    background.src = "gameboard.gif";
 
-    sprites["DEAD"] = [{
-        left: 8 * spriteWidth,
-        top: 0
-    }, {
-        left: 9 * spriteWidth,
-        top: 0
-    }, {
-        left: 10 * spriteWidth,
-        top: 0
-    }];
+    Frogger.observer.subscribe("player-lost-life", function() {
+        lives.pop();
+    });
 
-    characterSprite.src = "frog.gif";
+    Frogger.observer.subscribe("time-remaining-change", function(newTimeRemainingPercentage) {
+        _timeRemainingAsPercentage = newTimeRemainingPercentage;
+    });
 
-    (function gameControl(window) {
-        var LEFT_ARROW = 37,
-            UP_ARROW = 38,
-            RIGHT_ARROW = 39,
-            DOWN_ARROW = 40;
+    function renderLives() {
+        var index = 0,
+            length = lives.length,
+            life;
 
-        window.addEventListener("keydown", function(e) {
-            if (e.keyCode === LEFT_ARROW) {
-                Frog.move(direction.LEFT);
-            } else if (e.keyCode === UP_ARROW) {
-                Frog.move(direction.UP);
-            } else if (e.keyCode === RIGHT_ARROW) {
-                Frog.move(direction.RIGHT);
-            } else if (e.keyCode === DOWN_ARROW) {
-                Frog.move(direction.DOWN);
-            }
-        }, false);
-    }(window));
+        for (; index < length; index++) {
+            life = lives[index];
+
+            life.renderAt(life.left, life.top);
+        }
+    }
+
+    function renderTimeRemaining() {
+        Frogger.drawingSurface.save();
+
+        Frogger.drawingSurface.fillStyle = "#21DE00";
+        Frogger.drawingSurface.fillRect((1 - _timeRemainingAsPercentage) * 10 * gridSquare.width, 15.5 * gridSquare.height, _timeRemainingAsPercentage * 10 * gridSquare.width, gridSquare.height / 2);
+
+        Frogger.drawingSurface.restore();
+    }
+
+    function intersects(position1, position2) {
+        var doesIntersect = false;
+
+        if ((position1.left > position2.left && position1.left < position2.right) ||
+            (position1.right > position2.left && position1.left < position2.right)) {
+            doesIntersect = true;
+        }
+
+        return doesIntersect;
+    }
+
+    function render() {
+        renderLives();
+        renderTimeRemaining();
+    }
+
+    Frogger.observer.subscribe("render-base-layer", render);
 
     return {
-        move: function(moveDirection) {
-            if (!_isDead) {
-                currentDirection = moveDirection;
+        render: render,
 
-                if (currentDirection === direction.LEFT) {
-                    currentPosition.left -= gridWidth;
-                } else if (currentDirection === direction.RIGHT) {
-                    currentPosition.left += gridWidth;
-                } else if (currentDirection === direction.UP) {
-                    currentPosition.top -= gridHeight;
-                } else if (currentDirection === direction.DOWN) {
-                    currentPosition.top += gridHeight;
-                }
-
-                if (currentPosition.left <= GameBoard.getCharacterBounds().left) {
-                    currentPosition.left = GameBoard.getCharacterBounds().left;
-                } else if (currentPosition.left >= GameBoard.getCharacterBounds().right) {
-                    currentPosition.left = GameBoard.getCharacterBounds().right;
-                }
-
-                if (currentPosition.top >= GameBoard.getCharacterBounds().bottom) {
-                    currentPosition.top = GameBoard.getCharacterBounds().bottom;
-                } else if (currentPosition.top <= GameBoard.getCharacterBounds().top) {
-                    currentPosition.top = GameBoard.getCharacterBounds().top;
-                }
-
-                observer.publish("frog-moved");
-
-                animFrame = 1;
-                setTimeout(function() {
-                    animFrame = 0;
-                }, animFrameRate);
-            }
+        getRowPosition: function(row) {
+            return row * gridSquare.height;
         },
 
-        reset: function() {
-            currentPosition.left = startPosition.left;
-            currentPosition.top = startPosition.top;
-            currentDirection = direction.UP;
-            animFrame = 0;
-            _isDead = false;
+        getColumnPosition: function(column) {
+            return column * gridSquare.width;
         },
 
-        render: function() {
-            var sprite;
-
-            if (!_isDead) {
-                sprite = sprites[currentDirection][animFrame];
-
-                context.drawImage(characterSprite, sprite.left, sprite.top, spriteWidth, spriteHeight, currentPosition.left, currentPosition.top, spriteWidth, spriteHeight);
-            } else {
-                animFrame++;
-                if (animFrame < sprites["DEAD"].length) {
-                    context.drawImage(characterSprite, sprites["DEAD"][animFrame].left, sprites["DEAD"][animFrame].top, spriteWidth, spriteHeight, currentPosition.left, currentPosition.top, spriteWidth, spriteHeight);
-                }
-            }
+        getGridSize: function() {
+            return gridSquare;
         },
 
-        getRow: function() {
-            return currentPosition.top / gridHeight;
-        },
-
-        setPosition: function(left) {
-            currentPosition.left = left;
-        },
-
-        getLeft: function() {
-            return currentPosition.left;
-        },
-
-        getPosition: function() {
-            var left = currentPosition.left + (spriteWidth / 4);
-
+        getCharacterBounds: function() {
             return {
-                left: left,
-                right: left + (spriteWidth / 2)
+                left: 0,
+                right: (columns - 1) * gridSquare.width,
+                top: 2 * gridSquare.height,
+                bottom: 14 * gridSquare.height
             };
         },
 
-        loseLife: function() {
-            _isDead = true;
-        }
+        intersects: intersects
     };
+}());
+
+// Text Layer
+(function() {
+    var font = "67px Arcade Classic",
+        gridHeight = 80,
+        gameIsWon = false,
+        gameOver = false,
+        _score = 0,
+        _highScore = 0;
+
+    Frogger.observer.subscribe("game-won", function() {
+        gameIsWon = true;
+    });
+
+    Frogger.observer.subscribe("game-over", function() {
+        gameOver = true;
+    });
+
+    Frogger.observer.subscribe("reset", function() {
+        gameOver = false;
+        gameIsWon = false;
+    });
+
+    Frogger.observer.subscribe("score-change", function(newScore) {
+        _score = newScore;
+    });
+
+    Frogger.observer.subscribe("high-score-change", function(newHighScore) {
+        _highScore = newHighScore;
+    });
+
+    function renderScore() {
+        Frogger.drawingSurface.save();
+        Frogger.drawingSurface.textAlign = "end";
+
+        Frogger.drawingSurface.font = font;
+        Frogger.drawingSurface.fillStyle = "#DEDEF7";
+        Frogger.drawingSurface.fillText("1-UP", GameBoard.getColumnPosition(3), gridHeight / 2);
+
+        Frogger.drawingSurface.fillStyle = "#F00";
+        Frogger.drawingSurface.fillText(_score, GameBoard.getColumnPosition(3), gridHeight);
+
+        Frogger.drawingSurface.fillStyle = "#DEDEF7";
+        Frogger.drawingSurface.fillText("HI-SCORE", GameBoard.getColumnPosition(8), gridHeight / 2);
+
+        Frogger.drawingSurface.fillStyle = "#F00";
+        Frogger.drawingSurface.fillText(_highScore, GameBoard.getColumnPosition(7.5), gridHeight);
+        Frogger.drawingSurface.restore();
+    }
+
+    function renderGameOver() {
+        Frogger.drawingSurface.save();
+
+        Frogger.drawingSurface.font = font;
+        Frogger.drawingSurface.fillStyle = "#DEDEF7";
+        Frogger.drawingSurface.textAlign = "center";
+        Frogger.drawingSurface.fillText("GAME OVER", canvas.width / 2, GameBoard.getRowPosition(9));
+
+        Frogger.drawingSurface.restore();
+    }
+
+    function renderGameIsWon() {
+        Frogger.drawingSurface.save();
+
+        Frogger.drawingSurface.font = font;
+        Frogger.drawingSurface.fillStyle = "#F00";
+        Frogger.drawingSurface.textAlign = "center";
+        Frogger.drawingSurface.fillText("YOU WIN!", canvas.width / 2, GameBoard.getRowPosition(9));
+
+        Frogger.drawingSurface.restore();
+    }
+
+    function renderTimeLabel() {
+        Frogger.drawingSurface.save();
+        Frogger.drawingSurface.textAlign = "end";
+
+        Frogger.drawingSurface.font = font;
+        Frogger.drawingSurface.fillStyle = "#FF0";
+        Frogger.drawingSurface.fillText("TIME", canvas.width, canvas.height);
+
+        Frogger.drawingSurface.restore();
+    }
+
+    function render() {
+        renderScore();
+        renderTimeLabel();
+
+        if (gameOver) {
+            renderGameOver();
+        }
+
+        if (gameIsWon) {
+            renderGameIsWon();
+        }
+    }
+
+    Frogger.observer.subscribe("render-base-layer", render);
 }());

@@ -1,159 +1,142 @@
-var GameBoard = (function() {
-    var background = document.createElement("img"),
-        lives = document.createElement("img"),
-        livesPattern,
-        isReady = false,
-        rows = 15,
-        columns = 12,
-        gridSquare = {
-            width: 80,
-            height: 80
+Frogger.ImageSprite = function(left, top) {
+    this.startLeft = left || 0;
+    this.startTop = top || 0;
+    this.animations = {};
+    this.reset();
+};
+
+Frogger.Animation = function(options) {
+    this.sequence = options.sequence || [];
+    this.rate = options.rate || 150;
+    this.loop = options.loop || false;
+    this.spriteLeft = options.spriteLeft || 0;
+};
+
+Frogger.Animation.prototype = {
+    frame: 0,
+    playing: false,
+    timer: null,
+    play: function() {
+        var that = this;
+
+        if (!this.playing) {
+            this.playing = true;
+            this.reset();
+        }
+
+        this.timer = setInterval(function() {
+            that.incrementFrame();
+        }, this.rate);
+    },
+    reset: function() {
+        this.frame = 0;
+    },
+    incrementFrame: function() {
+        if (this.playing) {
+            this.frame++;
+            if (this.frame === this.sequence.length - 1) {
+                if (!this.loop) {
+                    this.stop();
+                } else {
+                    this.reset();
+                }
+            }
+        }
+    },
+    getSequenceValue: function() {
+        return this.sequence[this.frame];
+    },
+    getSpriteLeft: function() {
+        return this.spriteLeft;
+    },
+    stop: function() {
+        clearInterval(this.timer);
+        this.playing = false;
+    }
+};
+
+Frogger.ImageSprite.prototype = {
+    top: 0,
+    left: 0,
+    startLeft: 0,
+    startTop: 0,
+    sprite: (function() {
+        var img = document.createElement("image");
+        img.src = "spritemap.png";
+        return img;
+    }()),
+    width: 80,
+    height: 80,
+    spriteTop: 0,
+    spriteLeft: 0,
+    animations: null,
+    isHidden: false,
+    currentAnimation: "",
+
+    reset: function() {
+        this.left = this.startLeft;
+        this.top = this.startTop;
+        this.resetAnimation();
+        this.isHidden = false;
+    },
+
+    registerAnimation: function(animations) {
+        var key,
+            animation;
+
+        for (key in animations) {
+            animation = animations[key];
+
+            this.animations[key] = new Frogger.Animation(animation);
+        }
+    },
+
+    resetAnimation: function() {
+        if (this.animations[this.currentAnimation]) {
+            this.animations[this.currentAnimation].reset();
+        }
+
+        this.currentAnimation = "";
+    },
+
+    playAnimation: function(name) {
+        this.currentAnimation = name;
+
+        if (this.animations[this.currentAnimation]) {
+            this.animations[this.currentAnimation].play();
+        }
+    },
+
+    renderAt: function(left, top) {
+        var animation = this.animations[this.currentAnimation],
+            sequenceValue = animation ? animation.getSequenceValue() : 0,
+            animationSpriteLeft = animation ? animation.getSpriteLeft() : 0,
+            spriteLeft = this.spriteLeft + animationSpriteLeft + (this.width * sequenceValue);
+
+        if (!this.isHidden) {
+            Frogger.drawingSurface.drawImage(this.sprite, spriteLeft, this.spriteTop, this.width, this.height, left, top, this.width, this.height);
+        }
+    },
+
+    moveTo: function(left, top) {
+        this.left = left || 0;
+        if (typeof top !== "undefined") {
+            this.top = top || 0;
+        }
+    },
+
+    getWidth: function() {
+        return this.width;
+    },
+
+    getPosition: function() {
+        return {
+            left: this.left,
+            right: this.left + this.width
         };
+    },
 
-    background.onload = function() {
-        isReady = true;
-    };
-    background.src = "gameboard.gif";
-
-    lives.onload = function() {
-        livesPattern = context.createPattern(lives, "repeat");
-    };
-    lives.src = "lives.png";
-
-    function renderBackground() {
-        context.drawImage(background, 0, 0, canvas.width, canvas.height);
+    hide: function() {
+        this.isHidden = true;
     }
-
-    function renderLives() {
-        context.save();
-
-        context.translate(0, GameBoard.getRowPosition(15));
-        context.fillStyle = livesPattern;
-        context.fillRect(0, 0, 36 * Game.getLives(), 42);
-
-        context.restore();
-    }
-
-    function renderTimeRemaining() {
-        var timeRemainingAsPercentage = Game.getTimeRemainingAsPercentage();
-
-        context.save();
-
-        context.fillStyle = "#21DE00";
-        context.fillRect((1 - timeRemainingAsPercentage) * 10 * gridSquare.width, 15.5 * gridSquare.height, timeRemainingAsPercentage * 10 * gridSquare.width, gridSquare.height / 2);
-
-        context.restore();
-    }
-
-    return {
-        render: function() {
-            if (isReady) {
-                renderBackground();
-                renderLives();
-                renderTimeRemaining();
-            }
-        },
-
-        getRowPosition: function(row) {
-            return row * gridSquare.height;
-        },
-
-        getColumnPosition: function(column) {
-            return column * gridSquare.width;
-        },
-
-        getGridSize: function() {
-            return gridSquare;
-        },
-
-        getColumnCount: function() {
-            return columns;
-        },
-
-        getCharacterBounds: function() {
-            return {
-                left: 0,
-                right: (columns - 1) * gridSquare.width,
-                top: 2 * gridSquare.height,
-                bottom: 14 * gridSquare.height
-            };
-        }
-    };
-}());
-
-var TextLayer = (function() {
-    var font = "67px Arcade Classic",
-        gridHeight = 80,
-        gameIsWon = false;
-
-    observer.subscribe("game-won", function() {
-        gameIsWon = true;
-    });
-
-    function renderScore() {
-        context.save();
-        context.textAlign = "end";
-
-        context.font = font;
-        context.fillStyle = "#DEDEF7";
-        context.fillText("1-UP", GameBoard.getColumnPosition(3), gridHeight / 2);
-
-        context.fillStyle = "#F00";
-        context.fillText(Game.getScore(), GameBoard.getColumnPosition(3), gridHeight);
-
-        context.fillStyle = "#DEDEF7";
-        context.fillText("HI-SCORE", GameBoard.getColumnPosition(8), gridHeight / 2);
-
-        context.fillStyle = "#F00";
-        context.fillText(Game.getHighScore(), GameBoard.getColumnPosition(7.5), gridHeight);
-        context.restore();
-    }
-
-    function renderGameOver() {
-        context.save();
-
-        context.font = font;
-        context.fillStyle = "#DEDEF7";
-        context.textAlign = "center";
-        context.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-
-        context.restore();
-    }
-
-    function renderGameIsWon() {
-        context.save();
-
-        context.font = font;
-        context.fillStyle = "#F00";
-        context.textAlign = "center";
-        context.fillText("YOU WIN!", canvas.width / 2, canvas.height / 2);
-
-        context.restore();
-    }
-
-    function renderTimeLabel() {
-        context.save();
-        context.textAlign = "end";
-
-        context.font = font;
-        context.fillStyle = "#FF0";
-        context.fillText("TIME", canvas.width, canvas.height);
-
-        context.restore();
-    }
-
-    return {
-        render: function() {
-            renderScore();
-            renderTimeLabel();
-
-            if (Game.getIsOver()) {
-                renderGameOver();
-            }
-
-            if (gameIsWon) {
-                renderGameIsWon();
-            }
-        }
-    };
-}());
+};
