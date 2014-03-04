@@ -298,7 +298,7 @@ Frogger.Character = (function(Frogger) {
 
     // When the player presses the arrow keys on the keyboard, move the player's
     // character in the appropriate direction on the game board
-    window.addEventListener("keydown", function(e) {
+    window.addEventListener("keydown", function(event) {
 
         // Define the key codes for the arrow keys
         var LEFT_ARROW = 37,
@@ -308,13 +308,13 @@ Frogger.Character = (function(Frogger) {
 
         // Execute the move() function, passing along the correct direction based on the
         // arrow key pressed. Ignore any other key presses
-        if (e.keyCode === LEFT_ARROW) {
+        if (event.keyCode === LEFT_ARROW) {
             move(Frogger.direction.LEFT);
-        } else if (e.keyCode === RIGHT_ARROW) {
+        } else if (event.keyCode === RIGHT_ARROW) {
             move(Frogger.direction.RIGHT);
-        } else if (e.keyCode === UP_ARROW) {
+        } else if (event.keyCode === UP_ARROW) {
             move(Frogger.direction.UP);
-        } else if (e.keyCode === DOWN_ARROW) {
+        } else if (event.keyCode === DOWN_ARROW) {
             move(Frogger.direction.DOWN);
         }
     }, false);
@@ -324,12 +324,12 @@ Frogger.Character = (function(Frogger) {
     // according to where the screen has been tapped. This is useful since users with
     // touch screens are typically on mobile devices that do not have access to
     // physical keyboards to press the arrow keys to move the character.
-    Frogger.canvas.addEventListener("touchstart", function(e) {
+    Frogger.canvas.addEventListener("touchstart", function(event) {
 
         // Get a reference to the position of the touch on the screen in pixels from the
         // top-left position of the touched element, in this case the game board
-        var touchLeft = e.targetTouches[0].clientX,
-            touchTop = e.targetTouches[0].clientY;
+        var touchLeft = event.targetTouches[0].clientX,
+            touchTop = event.targetTouches[0].clientY;
 
         // Execute the move() function, passing along the correct direction based on the
         // position tapped on the game board
