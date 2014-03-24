@@ -1,5 +1,5 @@
 // Define the EmailFormView "class" constructor as before to initialize the View's DOM elements.
-// Uses the observer pattern methods from Listing 5-32.
+// Uses the observer pattern methods from Listing 7-6.
 function EmailFormView() {
     this.form = document.createElement("form");
     this.input = document.createElement("input");

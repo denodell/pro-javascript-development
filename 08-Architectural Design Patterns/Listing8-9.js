@@ -3,7 +3,7 @@
 // to affect the behavior of the system. Provided the ViewModel is expecting the specific data
 // attributes included in the View, the system will work as expected. The more generic the
 // ViewModel, therefore, the more variation is possible in the View without needing to update
-// thes code here. Uses the observer pattern methods from Listing 5-32.
+// thes code here. Uses the observer pattern methods from Listing 7-6.
 function EmailViewModel(model, view) {
     var that = this;
 

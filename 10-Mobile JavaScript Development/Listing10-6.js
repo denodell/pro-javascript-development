@@ -1,6 +1,6 @@
 // Create a <img> element on the page and point to an image of a compass
 var imageElem = document.createElement("img");
-imageElem.setAttribute("src", "Listing7-6.jpg");
+imageElem.setAttribute("src", "Listing10-6.jpg");
 
 // Create a function to execute when the compass heading of the device changes
 function handleCompassEvent(event) {

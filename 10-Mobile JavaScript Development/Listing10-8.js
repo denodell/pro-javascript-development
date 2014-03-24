@@ -4,7 +4,7 @@ var alpha = 0,
     gamma = 0,
     imageElem = document.createElement("img");
 
-imageElem.setAttribute("src", "Listing7-5.jpg");
+imageElem.setAttribute("src", "Listing10-5.jpg");
 
 // Update the event handler to do nothing more than store the values from the event
 function handleOrientationEvent(event) {

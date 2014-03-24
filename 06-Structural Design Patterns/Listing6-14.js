@@ -1,4 +1,4 @@
-// To proxy the myData.cookies.get() method from Listing 5-24, we begin by storing the current
+// To proxy the myData.cookies.get() method from Listing 6-13, we begin by storing the current
 // method in a variable
 var proxiedGet = myData.cookies.get;
 

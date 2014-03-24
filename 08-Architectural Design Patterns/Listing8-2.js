@@ -3,8 +3,8 @@
 // the stored email addresses with a "Remove" button beside each to allow us to remove email
 // addresses from the list of stored addresses. We will also define a generic View which acts
 // as a holder for multiple child views, and we'll use this as a way of linking the two views
-// together in Listing 5-45. As with the Model in Listing 5-43, we will be taking advantage of
-// the observer pattern methods from Listing 5-32
+// together in Listing 8-3. As with the Model in Listing 8-1, we will be taking advantage of
+// the observer pattern methods from Listing 7-6
 //
 // Define a View representing a simple form for adding new email addresses to the displayed
 // list. We define this as a "class" so that we can create and display as many instances of

@@ -1,6 +1,6 @@
 // Create a <img> element on the page and point to an image of your choosing
 var imageElem = document.createElement("img");
-imageElem.setAttribute("src", "Listing7-5.jpg");
+imageElem.setAttribute("src", "Listing10-5.jpg");
 
 // Create an event handler function for processing the device orientation event
 function handleOrientationEvent(event) {

@@ -1,4 +1,4 @@
-// Use EmailModel from Listing 5-43
+// Use EmailModel from Listing 8-1
 var emailModel = new EmailModel([
         "denodell@me.com",
         "denodell@gmail.com",

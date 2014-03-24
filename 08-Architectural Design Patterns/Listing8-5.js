@@ -1,5 +1,5 @@
 // The Presenter "class" is created in much the same was as the Controller in the MVC pattern.
-// Uses the observer pattern methods from Listing 5-32.
+// Uses the observer pattern methods from Listing 7-6.
 function EmailPresenter(model, view) {
     this.model = model;
     this.view = view;

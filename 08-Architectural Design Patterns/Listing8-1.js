@@ -2,7 +2,7 @@
 // email addresses on screen, allowing them to be added and removed from the displayed list. The
 // Model here, therefore, represents the stored email addresses themselves. When addresses are
 // added or removed, the Model broadcasts this fact using the observer pattern methods from
-// Listing 5-32
+// Listing 7-6
 //
 // Define the Model as a "class" such that multiple object instances can be created if desired
 function EmailModel(data) {

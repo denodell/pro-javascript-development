@@ -53,7 +53,7 @@ FormField.prototype = {
 
         // This could go on a while as there are 24 possible <input> types in HTML5. We need a
         // way to simplify this to make it easier to understand and extend in future - this is
-        // where the strategy pattern comes into play, as shown in Listing 5-41
+        // where the strategy pattern comes into play, as shown in Listing 7-14
         } else {
             // etc.
         }

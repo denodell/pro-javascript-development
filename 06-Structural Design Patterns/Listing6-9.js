@@ -1,5 +1,5 @@
 // Create four employee objects - note that two share the same company information, and two
-// share the same ssId and name. Behind the scenes, the flyweight pattern from Listing 5-19
+// share the same ssId and name. Behind the scenes, the flyweight pattern from Listing 6-8
 // ensures that repeated person and company data is stored in the most efficient way possible.
 var denOdell = employee.add({
         employeeId: 1456,

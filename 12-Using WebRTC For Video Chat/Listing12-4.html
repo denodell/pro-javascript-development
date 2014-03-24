@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>In-Browser Video Chat</title>
+    <meta charset="utf-8">
+
+    <style>
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .videos {
+        position: relative;
+    }
+
+    .video {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .local-video {
+        z-index: 1;
+        border: 1px solid black;
+    }
+    </style>
+
+</head>
+
+<body>
+    <h1>In-Browser Video Chat</h1>
+
+    <!-- Display the video chat room name at the top of the page -->
+    <p id="room-name"></p>
+
+    <!-- Create buttons which start a new video call or join an existing video call -->
+    <button id="start-call">Start Call</button>
+    <button id="join-call">Join Call</button>
+
+    <!-- Display the local and remote video streams, with the former displayed smaller
+    and layered above to the top left corner of the other -->
+    <div class="videos">
+        <video class="video local-video" id="local-video" width="200" autoplay muted></video>
+        <video class="video" id="remote-video" width="600" autoplay></video>
+    </div>
+
+    <!-- Load the script to enable Firebase support within this application -->
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
+    <!-- Load the VideoChat "class" definition -->
+    <script src="Listing12-5.js"></script>
+
+    <!-- Load the code to instantiate the VideoChat "class" and connect it to this page -->
+    <script src="Listing12-6.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 // The first stage of applying the flyweight pattern is to extract intrinsic data from
 // extrinsic data in the objects we wish to make more memory-efficient
 //
-// There are two sets of extrinsic data in an Employee object from Listing 5-18 - people data
+// There are two sets of extrinsic data in an Employee object from Listing 6-7 - people data
 // and company data. Let's create two "classes" to represent those types of data
 //
 // A Person object represents an individual's social security number and their name
@@ -85,7 +85,7 @@ var personFactory = (function() {
     }()),
 
     // The third stage of the flyweight pattern is to allow the creation of objects in a
-    // simliar way to that in Listing 5-18, providing all the handling of data storage in the
+    // simliar way to that in Listing 6-7, providing all the handling of data storage in the
     // most efficient way in a transparent way to the end user
     //
     // Create an object with methods to store employee data and to return data from each

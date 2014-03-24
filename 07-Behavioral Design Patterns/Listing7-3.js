@@ -44,7 +44,7 @@ var command = (function() {
 // point as it is needed
 command.execute(function() {
 
-    // Using the code from Listing 5-28, set a cookie - this will be executed immediately
+    // Using the code from Listing 7-2, set a cookie - this will be executed immediately
     cookie.execute("set", ["name", "Den Odell"]);
 }, function() {
 

@@ -2,7 +2,7 @@
 // alternative Models and Views to be provided whilst still enabling a similar system behavior,
 // provided the Model provides add(), remove() and getAll() methods for accessing its data, and
 // the View provides a render() method - this is the strategy pattern in action. We will also
-// use the observer pattern methods from Listing 5-32.
+// use the observer pattern methods from Listing 7-6.
 //
 // Define a "class" to represent the Controller for connecting the Model and Views in our email
 // address system. The Controller is instantiated after the Model and View, and their object
