@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mustache.js Example</title>
+</head>
+<body>
+    <h1>Mustache.js Example</h1>
+
+    <!-- Define the template we wish to apply our data to. The "type" attribute
+        needs to be any non-standard MIME type in order for the element's contents
+        to be interpreted as plain text rather than executed -->
+    <script id="template" type="x-tmpl-mustache">
+        <p>
+            Name: <a href="mailto:{{email}}">{{firstName}} {{lastName}}</a><br>
+            Company: {{company}}
+        </p>
+        <p>
+            City: {{city}}
+        </p>
+    </script>
+
+    <!-- Load the Mustache.js library -->
+    <script src="lib/mustache.min.js"></script>
+
+    <!-- Execute our script to combine the template with our data -->
+    <script src="Listing13-5.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Handlebars.js Example</title>
+</head>
+<body>
+    <h1>Handlebars.js Example</h1>
+
+    <div id="result"></div>
+
+    <!-- Define the template we wish to apply our data to. The "type" attribute
+        needs to be any non-standard MIME type in order for the element's contents
+        to be interpreted as plain text rather than executed -->
+    <script id="template" type="x-tmpl-handlebars">
+        <p>
+            Name: <a href="mailto:{{email}}">{{firstName}} {{lastName}}</a><br>
+            Company: {{company}}
+        </p>
+        <p>
+            City: {{city}}
+        </p>
+    </script>
+
+    <!-- Load the Handlebars.js library -->
+    <script src="lib/handlebars.min.js"></script>
+
+    <!-- Execute our script to combine the template with our data. Included
+        here for brevity, move to an external JavaScript file for production -->
+    <script>
+        // Get a reference to the template element and result element on the page
+        var templateElem = document.getElementById("template"),
+            resultElem = document.getElementById("result"),
+
+            // Get the string representation of the Handlebars template from the template
+            // element
+            template = templateElem.innerHTML,
+
+            // Define the data object to apply to the template
+            data = {
+                firstName: "Den",
+                lastName: "Odell",
+                email: "denodell@me.com",
+                company: "AKQA",
+                city: "London"
+            },
+
+            // The compile() method returns a function which the data object can be passed to
+            // in order to produce the desired output string
+            compiledTemplate = Handlebars.compile(template);
+
+        // Combine the data with the compiled template function and add the result to the page
+        resultElem.innerHTML = compiledTemplate(data);
+    </script>
+</body>
+</html>
