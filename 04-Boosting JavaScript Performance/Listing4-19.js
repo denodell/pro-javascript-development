@@ -1,4 +1,4 @@
-// memoize expects a function as an input and returns the same function
+// memoize() expects a function as an input and returns the same function
 // with storage capabilities added
 
 function memoize(fn) {
