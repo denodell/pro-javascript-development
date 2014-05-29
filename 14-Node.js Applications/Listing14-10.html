@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <title>Socket.IO Example</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Socket.IO Example</h1>
+
+    <!-- Create a form with a single text field, named "message-field". When the form is
+        submitted, we want to send the field value to the server, and show the message
+        in the <div id="messages-sent"> element below -->
+    <form method="post" action="/" id="send-message-form">
+        <input type="text" name="message-field" id="message-field">
+        <input type="submit" value="Send message">
+    </form>
+
+    <!-- Create an element to present messages sent from the browser to the server -->
+    <h2>Messages Sent From Browser</h2>
+    <div id="messages-sent"></div>
+
+    <!-- Create an element to present messages received from the server -->
+    <h2>Messages Received From Server</h2>
+    <div id="messages-received"></div>
+
+    <!-- Load the Socket.IO JavaScript file provided by the server - this is automatically
+        available at this location if Socket.IO is running on the server and provides the
+        necessary web socket connection back to the server. It also supplies the fallback
+        code in case web sockets are not supported by the current browser -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Load the script found in Listing 14-10 to connect the page up to the web socket
+        connection -->
+    <script src="Listing14-11.js"></script>
+</body>
+</html>

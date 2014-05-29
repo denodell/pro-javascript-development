@@ -1,0 +1,67 @@
+{
+    // The "name" value is mandatory and must be URL-friendly so cannot contain any spaces
+    // and should be in lower case
+    "name": "my-test-project",
+
+    // The "version" value is mandatory and must adhere to the semantic versioning format
+    "version": "0.0.1",
+
+    // An optional friendly description of the project to assist users when searching the npm
+    // directory
+    "description": "This is my test project",
+
+    // A pointer to the project's homepage online - many use this field to point to the
+    // GitHub (or equivalent hosting service) code repository page
+    "homepage": "https://github.com/denodell/my-test-project",
+
+    // Details of the code repository which other developers may find useful if they wish
+    // to contribute to the project
+    "repository": {
+
+        // The type of repository, e.g. "git" (for Git) or "svn" (for Subversion)
+        "type": "git",
+
+        // The URL of the repository itself, designed for direct use with software and should
+        // not be a link to the project home page
+        "url": "https://github.com/denodell/my-test-project.git"
+    },
+
+    // Details of the project author, if there is only one. For multiple authors, this key
+    // name should be changed to "contributors" and its value will be an array of names and
+    // email addresses of those who have worked on the project
+    "author": {
+        "name": "Den Odell",
+        "email": "denodell@me.com"
+    },
+
+    // List of package dependencies needed to run the project described by this file. Each is
+    // listed by its package name as it is in the npm directory and the version number of the
+    // dependency needed. By specifying the version, we can ensure that future breaking updates
+    // to dependent packages won't impact our package
+    "dependencies": {
+
+        // Specify the exact version number of the dependency required by using its full
+        // version number
+        "async": "0.9.0",
+
+        // Versions greater than or equal to specific releases can be specified using >=
+        "request": ">=2.36.0",
+
+        // Versions reasonably close to a given release can be specific using tilde (~).
+        // Here, this means any version between 1.6.0 and any future release up to but not
+        // including the next major release (i.e. 1.7.0 in this case)
+        "underscore": "~1.6.0",
+
+        // Git URLs can be used in place of version numbers to reference dependencies that
+        // are stored in places outside of the npm directory. The latest contents of the repo
+        // will be downloaded when this package is installed
+        "promise-the-earth": "git+ssh://github.com/denodell/promise-the-earth.git"
+    },
+
+    // List of additional package dependencies required for developers who wish to contribute
+    // to this project. Often this list includes development build tools, code quality checks
+    // and unit test runners
+    "devDependencies": {
+        "yuidocjs": "~0.3.50"
+    }
+}
