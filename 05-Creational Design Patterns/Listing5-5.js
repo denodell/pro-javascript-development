@@ -14,14 +14,18 @@ FormBuilder.prototype = {
 
         // Use the supplied form field type and display text to instantiate the relevant form
         // field "class"
-        if (type === "text") {
+        switch (type) {
+        case "text":
             field = new TextField(displayText);
-        } else if (type === "email") {
+            break;
+        case "email":
             field = new EmailField(displayText);
-        } else if (type === "button") {
+            break;
+        case "button":
             field = new ButtonField(displayText);
-        } else {
-            throw new Error("Invalid field type specified.");
+            break;
+        default:
+            throw new Error("Invalid field type specified: " + type);
         }
 
         // Add the created field object to the storage array
@@ -52,7 +56,7 @@ FormBuilder.prototype = {
 
 // Define the underlying form field "classes", as in Listing 5-1
 function TextField(displayText) {
-    this.displayText = displayText;
+    this.displayText = displayText || "";
 }
 TextField.prototype.getElement = function() {
     var textField = document.createElement("input");
@@ -63,7 +67,7 @@ TextField.prototype.getElement = function() {
 };
 
 function EmailField(displayText) {
-    this.displayText = displayText;
+    this.displayText = displayText || "";
 }
 EmailField.prototype.getElement = function() {
     var emailField = document.createElement("input");
@@ -74,7 +78,7 @@ EmailField.prototype.getElement = function() {
 };
 
 function ButtonField(displayText) {
-    this.displayText = displayText;
+    this.displayText = displayText || "";
 }
 ButtonField.prototype.getElement = function() {
     var button = document.createElement("button");

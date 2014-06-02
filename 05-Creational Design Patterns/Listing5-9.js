@@ -1,4 +1,4 @@
-// Group related properties, methods and behavior together into a single object literal, which
+// Group related properties and methods together into a single object literal, which
 // we call a Singleton
 var element = {
 

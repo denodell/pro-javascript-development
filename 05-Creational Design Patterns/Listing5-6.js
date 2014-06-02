@@ -12,5 +12,7 @@ formBuilder.addField("button", "Submit");
 // containing all the fields
 form = formBuilder.getForm();
 
-// Append the <form> element to the current page
-document.body.appendChild(form);
+// Append the <form> element to the current page once it has loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(form);
+}, false);

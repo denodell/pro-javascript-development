@@ -14,13 +14,22 @@ var FormFieldFactory = {
                 field;
 
             // Create an object instance using the most appropriate "class" based on the
-            // input type
-            if (type === "text") {
+            // supplied input type
+            switch (type) {
+            case "text":
                 field = new TextField(displayText);
-            } else if (type === "email") {
+                break;
+            case "email":
                 field = new EmailField(displayText);
-            } else if (type === "button") {
+                break;
+            case "button":
                 field = new ButtonField(displayText);
+                break;
+
+            // If in doubt, use the TextField "class"
+            default:
+                field = new TextField(displayText);
+                break;
             }
 
             return field;

@@ -14,7 +14,14 @@ var textField = FormFieldFactory.makeField({
         displayText: "Submit"
     });
 
-// Add the three DOM elements to the current page
-document.body.appendChild(textField.getElement());
-document.body.appendChild(emailField.getElement());
-document.body.appendChild(buttonField.getElement());
+// Wait for the browser's "load" event to fire, then add the DOM elements represented by the
+// three newly created objects to the current page
+window.addEventListener("load", function() {
+    var bodyElement = document.body;
+
+    // Use the getElement() method of each object to get a reference to its DOM element for
+    // adding to the page
+    bodyElement.appendChild(textField.getElement());
+    bodyElement.appendChild(emailField.getElement());
+    bodyElement.appendChild(buttonField.getElement());
+}, false);

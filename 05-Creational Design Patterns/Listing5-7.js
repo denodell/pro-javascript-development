@@ -23,6 +23,10 @@ Field.prototype = {
 textField = new Field("text", "Enter the first line of your address");
 emailField = new Field("email", "Enter your email address");
 
-// Add the elements stored in these objects to the current page
-document.body.appendChild(textField.getElement());
-document.body.appendChild(emailField.getElement());
+// Add the elements stored in these objects to the current page once loaded
+window.addEventListener("load", function() {
+    var bodyElement = document.body;
+
+    bodyElement.appendChild(textField.getElement());
+    bodyElement.appendChild(emailField.getElement());
+}, false);

@@ -1,17 +1,18 @@
 // Define a base factory "class" for creating form fields, from which other, more specialised
 // form field creation factory "classes" will be inherited.
-function FormFieldFactory() {}
-FormFieldFactory.prototype = {
+function FormFieldFactory() {
 
     // Define a list of supported field types to be applied to all inherited form field
     // factory classes
-    availableTypes: {
+    this.availableTypes = {
         TEXT: "text",
         EMAIL: "email",
         BUTTON: "button"
-    },
+    };
+}
+FormFieldFactory.prototype = {
 
-    // Define a makeField method which will be overwritten by sub classes using polymorphism.
+    // Define a makeField() method which will be overwritten by sub classes using polymorphism.
     // This method should therefore not be called directly from within this parent "class" so
     // we'll throw an error if it is
     makeField: function() {
@@ -19,54 +20,59 @@ FormFieldFactory.prototype = {
     }
 };
 
-// Define a factory "class", inherited from the base "class", for creating HTML5 form fields.
+// Define a factory "class", inherited from the base factory, for creating HTML5 form fields.
 // Read more about the differences in these form fields from HTML4 at
 // http://bit.ly/html5_webforms
 function Html5FormFieldFactory() {}
 Html5FormFieldFactory.prototype = new FormFieldFactory();
 
-// Override the makeField method with code specific for this factory
-Html5FormFieldFactory.prototype.makeField = function() {
+// Override the makeField() method with code specific for this factory
+Html5FormFieldFactory.prototype.makeField = function(options) {
     var options = options || {},
         type = options.type || this.availableTypes.TEXT,
         displayText = options.displayText || "",
         field;
 
-    if (!this.availableTypes[type]) {
-        throw new Error("Invalid field type specified.");
-    }
-
-    if (type === this.availableTypes.TEXT) {
+    // Select the most appropriate field type based on the provided options
+    switch (type) {
+    case this.availableTypes.TEXT:
         field = new Html5TextField(displayText);
-    } else if (type === this.availableTypes.EMAIL) {
+        break;
+    case this.availableTypes.EMAIL:
         field = new Html5EmailField(displayText);
-    } else if (type === this.availableTypes.BUTTON) {
+        break;
+    case this.availableTypes.BUTTON:
         field = new ButtonField(displayText);
+        break;
+    default:
+        throw new Error("Invalid field type specified: " + type);
     }
 
     return field;
 };
 
-// Define a factory "class", also inherited from the same base "class", for creating older-style
-// HTML4 form fields
+// Define a factory "class", also inherited from the same base factory, for creating
+// older-style HTML4 form fields
 function Html4FormFieldFactory() {}
 Html4FormFieldFactory.prototype = new FormFieldFactory();
 
-// Override the makeField method with code specific for this factory
-Html4FormFieldFactory.prototype.makeField = function() {
+// Override the makeField() method with code specific for this factory
+Html4FormFieldFactory.prototype.makeField = function(options) {
     var options = options || {},
         type = options.type || this.availableTypes.TEXT,
         displayText = options.displayText || "",
         field;
 
-    if (!this.availableTypes[type]) {
-        throw new Error("Invalid field type specified.");
-    }
-
-    if (type === this.availableTypes.TEXT || type === this.availableTypes.EMAIL) {
+    switch (type) {
+    case this.availableTypes.TEXT:
+    case this.availableTypes.EMAIL:
         field = new Html4TextField(displayText);
-    } else if (type === this.availableTypes.BUTTON) {
+        break;
+    case this.availableTypes.BUTTON:
         field = new ButtonField(displayText);
+        break;
+    default:
+        throw new Error("Invalid field type specified: " + type);
     }
 
     return field;
@@ -74,7 +80,7 @@ Html4FormFieldFactory.prototype.makeField = function() {
 
 // Define the form field "classes" to be used for creating HTML5 and HTML4 form elements
 function Html5TextField(displayText) {
-    this.displayText = displayText;
+    this.displayText = displayText || "";
 }
 Html5TextField.prototype.getElement = function() {
     var textField = document.createElement("input");
@@ -88,7 +94,7 @@ Html5TextField.prototype.getElement = function() {
 // <div> element containing the text field and an associated <label> containing the
 // placeholder text
 function Html4TextField(displayText) {
-    this.displayText = displayText;
+    this.displayText = displayText || "";
 }
 Html4TextField.prototype.getElement = function() {
     var wrapper = document.createElement("div"),

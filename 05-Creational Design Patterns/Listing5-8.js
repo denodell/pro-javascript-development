@@ -46,6 +46,10 @@ var field = {
     });
 
 // Call the getElement() method of both objects, appending the created <input> DOM elements to
-// the current page
-document.body.appendChild(textField.getElement());
-document.body.appendChild(emailField.getElement());
+// the current page once loaded
+window.addEventListener("load", function() {
+    var bodyElement = document.body;
+
+    bodyElement.appendChild(textField.getElement());
+    bodyElement.appendChild(emailField.getElement());
+}, false);
