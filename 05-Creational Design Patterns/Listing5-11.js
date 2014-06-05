@@ -9,15 +9,15 @@ var myProject = {
             // Create a method to send an Ajax GET request
             get: function(url, callback) {
                 var xhr = new XMLHttpRequest(),
-                    LOADED_STATE = 4,
-                    OK_STATUS = 200;
+                    STATE_LOADED = 4,
+                    STATUS_OK = 200;
 
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState !== LOADED_STATE) {
+                    if (xhr.readyState !== STATE_LOADED) {
                         return;
                     }
 
-                    if (xhr.status === OK_STATUS) {
+                    if (xhr.status === STATUS_OK) {
                         callback(xhr.responseText);
                     }
                 };
@@ -55,14 +55,14 @@ myProject.data.cookies = {
 };
 
 // Execute methods directly through the "namespace" hierarchy using dot notation
-myProject.data.ajax.get("/", function(response) {
-    alert("Received the following response: " + response);
+myProject.data.ajax.get("/user/12345", function(response) {
+    alert("HTTP GET response received. User data: " + response);
 });
 
 // Note how using the hierarchy adds clarity to the final method call
-myProject.data.cookies.set("userID", "1234567890");
+myProject.data.cookies.set("company", "AKQA");
 myProject.data.cookies.set("name", "Den Odell");
 
 // Read back the cookie valus set previously
-alert(myProject.data.cookies.get("userID")); // 1234567890
+alert(myProject.data.cookies.get("company")); // AKQA
 alert(myProject.data.cookies.get("name")); // Den Odell

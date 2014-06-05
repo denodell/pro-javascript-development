@@ -31,16 +31,16 @@ function ajaxCall(type, url, callback, data) {
             // If no relevant Ajax connection object can be found, throw an error
             throw new Error("Ajax not supported in this browser.");
         }()),
-        LOADED_STATE = 4,
-        OK_STATUS = 200;
+        STATE_LOADED = 4,
+        STATUS_OK = 200;
 
     // Execute the given callback method once a succesful response is received from the server
     xhr.onreadystatechange = function() {
-        if (xhr.readyState !== LOADED_STATE) {
+        if (xhr.readyState !== STATE_LOADED) {
             return;
         }
 
-        if (xhr.status === OK_STATUS) {
+        if (xhr.status === STATUS_OK) {
             callback(xhr.responseText);
         }
     };

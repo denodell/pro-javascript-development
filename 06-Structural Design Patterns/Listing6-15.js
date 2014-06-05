@@ -71,11 +71,15 @@ FormField = (function(FormField) {
 var textField = new FormField("text", "Enter the first line of your address"),
     emailField = new FormField("email", "Enter your email address");
 
-// Add the elements stored in these objects to the current page - at this point the getElement()
-// method is called, which in turn calls initialize(), creating an instance of the original
-// "class" and executing its constructor function which performs the actual DOM element creation
-document.body.appendChild(textField.getElement());
-document.body.appendChild(emailField.getElement());
+// Add the elements stored in these objects to the current page when loaded - at this point the
+// getElement() method is called, which in turn calls initialize(), creating an instance of the
+// original "class" and executing its constructor function which performs the actual DOM element
+// creation. This ensures the memory used to store the DOM element is only taken up at the exact
+// point it is required
+window.addEventListener("load", function() {
+    document.body.appendChild(textField.getElement());
+    document.body.appendChild(emailField.getElement());
+}, false);
 
 // Execute another method from the proxy, this time the object instance of the original "class"
 // won't be recreated and the stored instance will be used instead

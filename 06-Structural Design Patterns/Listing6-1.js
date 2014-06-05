@@ -3,15 +3,15 @@
 var http = {
     makeRequest: function(type, url, callback, data) {
         var xhr = new XMLHttpRequest(),
-            LOADED_STATE = 4,
-            OK_STATUS = 200;
+            STATE_LOADED = 4,
+            STATUS_OK = 200;
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState !== LOADED_STATE) {
+            if (xhr.readyState !== STATE_LOADED) {
                 return;
             }
 
-            if (xhr.status === OK_STATUS) {
+            if (xhr.status === STATUS_OK) {
                 callback(xhr.responseText);
             }
         };
@@ -21,32 +21,33 @@ var http = {
     }
 };
 
-// The makeRequest method of the http singleton could be called as follows
-http.makeRequest("get", "/", function(response) {
-    alert("Response recieved: " + response);
+// The http.makeRequest() method defined above could be called as follows, for getting and
+// updating user data in a system for a user with an ID of "12345":
+http.makeRequest("get", "/user/12345", function(response) {
+    alert("HTTP GET response received. User data: " + response);
 });
 
-http.makeRequest("post", "/", function(response) {
-    alert("Response recieved: " + response);
-}, "userID=1234567890&name=Den%20Odell");
+http.makeRequest("post", "/user/12345", function(response) {
+    alert("HTTP POST response received. New user data: " + response);
+}, "company=AKQA&name=Den%20Odell");
 
 // Now imagine in a refactor of your project, you decide to introduce a new structure using a
-// namespace and splitting out the makeRequest method into separate methods for get and post
-// requests
+// namespace and splitting out the makeRequest() method into separate methods for HTTP GET
+// and POST requests
 var myProject = {
     data: {
         ajax: (function() {
             function createRequestObj(callback) {
                 var xhr = new XMLHttpRequest(),
-                    LOADED_STATE = 4,
-                    OK_STATUS = 200;
+                    STATE_LOADED = 4,
+                    STATUS_OK = 200;
 
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState !== LOADED_STATE) {
+                    if (xhr.readyState !== STATE_LOADED) {
                         return;
                     }
 
-                    if (xhr.status === OK_STATUS) {
+                    if (xhr.status === STATUS_OK) {
                         callback(xhr.responseText);
                     }
                 };
@@ -73,13 +74,13 @@ var myProject = {
     }
 };
 
-// These new methods could be called as follows
-myProject.data.ajax.get("/", function(response) {
-    alert("Response recieved: " + response);
+// These new get() and post() methods could be called as follows:
+myProject.data.ajax.get("/user/12345", function(response) {
+    alert("Refactored HTTP GET response received. User data: " + response);
 });
 
-myProject.data.ajax.post("/", "userID=1234567890&name=Den%20Odell", function(response) {
-    alert("Response recieved: " + response);
+myProject.data.ajax.post("/user/12345", "company=AKQA&name=Den%20Odell", function(response) {
+    alert("Refactored HTTP POST response received. New user data: " + response);
 });
 
 // To avoid rewriting every call to the http.makeRequest() method in the rest of your code
@@ -99,11 +100,11 @@ function httpToAjaxAdapter(type, url, callback, data) {
 http.makeRequest = httpToAjaxAdapter;
 
 // Use the new adapter in the same way as the original method - internally it will call the
-// newer code
-http.makeRequest("get", "/", function(response) {
-    alert("Response recieved: " + response);
+// newer code, but externally it will appear identical to the old makeRequest() method
+http.makeRequest("get", "/user/12345", function(response) {
+    alert("Adapter HTTP GET response received. User data: " + response);
 });
 
-http.makeRequest("post", "/", function(response) {
-    alert("Response recieved: " + response);
-}, "userID=1234567890&name=Den%20Odell");
+http.makeRequest("post", "/user/12345", function(response) {
+    alert("Adapter HTTP POST response received. New user data: " + response);
+}, "company=AKQA&name=Den%20Odell");

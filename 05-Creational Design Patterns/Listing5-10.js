@@ -38,7 +38,7 @@ var cookie = (function() {
 }());
 
 // Set a cookie using the "set" method exposed through the "cookie" singleton
-cookie.set("userID", "1234567890");
+cookie.set("name", "Den Odell");
 
 // Check that the cookie was set correctly
-alert(cookie.get("userID")); // 1234567890
+alert(cookie.get("name")); // Den Odell

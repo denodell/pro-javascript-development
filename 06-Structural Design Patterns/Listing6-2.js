@@ -1,5 +1,5 @@
 // Define a singleton containing methods to get references to page elements and to add
-// attributes to those elements
+// class names to those elements
 var elements = {
 
     // Define a method to get DOM elements by tag name. If one element is found, it is
@@ -21,23 +21,25 @@ var elements = {
         return output.length === 1 ? output[0] : output;
     },
 
-    // Define a composite method which adds an attribute to one or more elements, regardless
+    // Define a composite method which adds an class name to one or more elements, regardless
     // of how many are passed when it is executed
-    addAttribute: function(elems, name, value) {
+    addClass: function(elems, newClassName) {
         var elemIndex = 0,
-            elemLength = elems.length;
+            elemLength = elems.length,
+            elem;
 
         // Determine if the elements passed in are an array or a single object
         if (Object.prototype.toString.call(elems) === "[object Array]") {
 
-            // If they are an array, loop through each elements and apply the attribute to it
+            // If they are an array, loop through each elements and add the class name to each
             for (; elemIndex < elemLength; elemIndex++) {
-                elems[elemIndex].setAttribute(name, value);
+                elem = elems[elemIndex];
+                elem.className += (elem.className === "" ? "" : " ") + newClassName;
             }
         } else {
 
-            // If a single element was passed in, apply the attribute value to it
-            elems.setAttribute(name, value);
+            // If a single element was passed in, add the class name value to it
+            elems.className += (elems.className === "" ? "" : " ") + newClassName;
         }
     }
 };
@@ -47,7 +49,7 @@ var elements = {
 var body = elements.get("body"),
     links = elements.get("a");
 
-// The composite elements.addAttribute() method gives the same interface to single elements
+// The composite elements.addClass() method gives the same interface to single elements
 // as it does to multiple elements, simplifying its use considerably
-elements.addAttribute(body, "lang", "en");
-elements.addAttribute(links, "data-lang", "en");
+elements.addClass(body, "has-js");
+elements.addClass(links, "custom-link");

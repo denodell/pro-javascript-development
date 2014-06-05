@@ -36,5 +36,5 @@ var cookie = (function(document, undefined) {
         }
     };
 
-// Pass in any dependencies
+// Pass in any dependencies at the point of function execution
 }(document));

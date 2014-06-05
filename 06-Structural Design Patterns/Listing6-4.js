@@ -31,5 +31,7 @@ form.addEventListener("submit", function(e) {
     }
 }, false);
 
-// Add the <form> field to the current page
-document.body.appendChild(form);
+// Add the <form> field to the current page once it has loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(form);
+}, false);

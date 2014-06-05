@@ -2,7 +2,8 @@
 // method in a variable
 var proxiedGet = myData.cookies.get;
 
-// Override the get() method with a new function which proxies the original
+// Override the get() method with a new function which proxies the original and augments its
+// behavior
 myData.cookies.get = function() {
 
     // Call the proxied (original) method to get the value it would have produced

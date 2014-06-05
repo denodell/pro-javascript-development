@@ -10,15 +10,15 @@ myData = (function(myNamespace, undefined) {
     myNamespace.ajax = {
         get: function(url, callback) {
             var xhr = new XMLHttpRequest(),
-                LOADED_STATE = 4,
-                OK_STATUS = 200;
+                STATE_LOADED = 4,
+                STATUS_OK = 200;
 
             xhr.onreadystatechange = function() {
-                if (xhr.readyState !== LOADED_STATE) {
+                if (xhr.readyState !== STATE_LOADED) {
                     return;
                 }
 
-                if (xhr.status === OK_STATUS) {
+                if (xhr.status === STATUS_OK) {
                     callback(xhr.responseText);
                 }
             };
@@ -68,11 +68,11 @@ myData = (function(myNamespace, undefined) {
 
 // Execute methods directly through the myData namespace object, which now contains both Ajax
 // and Cookies modules
-myData.ajax.get("/", function(response) {
-    alert("Received the following response: " + response);
+myData.ajax.get("/user/12345", function(response) {
+    alert("HTTP GET response received. User data: " + response);
 });
-myData.cookies.set("userID", "1234567890");
+myData.cookies.set("company", "AKQA");
 myData.cookies.set("name", "Den Odell");
 
-alert(myData.cookies.get("userID")); // 1234567890
+alert(myData.cookies.get("company")); // AKQA
 alert(myData.cookies.get("name")); // Den Odell
