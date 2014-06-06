@@ -126,7 +126,7 @@ EmailListView.prototype = {
         // ones from scratch each time
         var listItem = this.listItem.cloneNode(false),
             listItemText = this.listItemText.cloneNode(false),
-            listItemRemoveButton = this.listItemRemoveButton.cloneNode(false);
+            listItemRemoveButton = this.listItemRemoveButton.cloneNode(true);
 
         // Assign a "data-email" attribute to the <li> element, populated with the email
         // address it represents - this simplifies the attempt to locate the list item

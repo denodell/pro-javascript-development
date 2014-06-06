@@ -62,10 +62,11 @@ var log = (function() {
         // and error
         infoLogger = new LogFormatter(LogLevel.INFO),
         warnLogger = new LogFormatter(LogLevel.WARN),
+        errorLogger = new LogFormatter(LogLevel.ERROR),
 
         // Set the 'error' logging level to be the first and highest level in our chain of
         // responsibility, which we'll store in the 'logger' variable
-        errorLogger = logger = new LogFormatter(LogLevel.ERROR);
+        logger = errorLogger;
 
     // Set the chain of responsibility hierarchy using the setNextInChain() method on each
     // object instance - we're assuming that the 'error' logging level is the most important and
@@ -88,7 +89,7 @@ var log = (function() {
 
         // Define a method for formatting a log message appropriately according to its
         // logging level
-        log: function(message, logLevel) {
+        message: function(message, logLevel) {
 
             // We call the createLogMessage() method on the first object instance in our
             // hierarchy only, which in turn calls those further down the chain if it does not
@@ -103,20 +104,20 @@ var log = (function() {
     };
 }());
 
-// Execute the log() method of the 'log' singleton, passing in a message and the logging level
-// The first object in the chain of responsibility handles the 'error' logging level, so the
-// message is not passed down the chain of responsibility and is returned by the
+// Execute the message() method of the 'log' singleton, passing in a message and the logging
+// level. The first object in the chain of responsibility handles the 'error' logging level, so
+// the message is not passed down the chain of responsibility and is returned by the
 // errorLogger object
-log.log("Something vary bad happened", LogLevel.ERROR);
+log.message("Something vary bad happened", LogLevel.ERROR);
 
 // This message is passed through the errorLogger object to the warnLogger object through the
 // chain of responsibility since the errorLogger object is only told to handle messages with the
 // 'error' logging level
-log.log("Something bad happened", LogLevel.WARN);
+log.message("Something bad happened", LogLevel.WARN);
 
 // This message is passed through the errorLogger object to the warnLogger object, and onto the
 // infoLogger object which is the one handling 'info' type log messages
-log.log("Something happened", LogLevel.INFO);
+log.message("Something happened", LogLevel.INFO);
 
 // Output the stored logs
 alert(log.getLogs());

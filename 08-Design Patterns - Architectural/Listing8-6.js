@@ -81,7 +81,7 @@ EmailListView.prototype = {
     createListItem: function(email) {
         var listItem = this.listItem.cloneNode(false),
             listItemText = this.listItemText.cloneNode(false),
-            listItemRemoveButton = this.listItemRemoveButton.cloneNode(false);
+            listItemRemoveButton = this.listItemRemoveButton.cloneNode(true);
 
         listItem.setAttribute("data-email", email);
         listItemRemoveButton.setAttribute("data-email", email);

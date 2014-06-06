@@ -55,25 +55,25 @@ command.execute(function() {
 
 // Execute a second piece of functionality, setting a second cookie
 command.execute(function() {
-    cookie.execute("set", ["userID", "1234567890"]);
+    cookie.execute("set", ["company", "AKQA"]);
 }, function() {
-    cookie.execute("remove", ["userID"]);
+    cookie.execute("remove", ["company"]);
 });
 
 // Check the value of the two cookies
 alert(cookie.get("name")); // Den Odell
-alert(cookie.get("userID")); // 1234567890
+alert(cookie.get("company")); // AKQA
 
-// Reverse the previous operation, removing the 'userID' cookie
+// Reverse the previous operation, removing the 'company' cookie
 command.undo();
 
 // Check the value of the two cookies
 alert(cookie.get("name")); // Den Odell
-alert(cookie.get("userID")); // undefined, since the cookie has now been removed
+alert(cookie.get("company")); // "" (an empty string), since the cookie has now been removed
 
 // Reverse the first operation, removing the 'name' cookie
 command.undo();
 
 // Check the value of the two cookies
-alert(cookie.get("name")); // undefined, since the cookie has now been removed
-alert(cookie.get("userID")); // undefined
+alert(cookie.get("name")); // "", since the cookie has now been removed
+alert(cookie.get("company")); // ""

@@ -40,7 +40,7 @@ var Frogger = (function() {
 
         // Define the observer design pattern methods subscribe() and publish() to allow
         // application-wide communication without the need for tightly-coupled modules. See
-        // Chapter 5 for more information on this design pattern.
+        // Chapter 7 for more information on this design pattern.
         observer: (function() {
             var events = {};
 

@@ -1,5 +1,5 @@
 // Define an object containing global publish(), subscribe(), and unsubscribe() methods to
-// implement the Observer pattern
+// implement the observer pattern
 var observer = (function() {
 
     // Create an object for storing registered events in by name along with the associated

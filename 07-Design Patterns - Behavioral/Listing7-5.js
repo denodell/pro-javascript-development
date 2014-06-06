@@ -1,6 +1,5 @@
 // Define an object and an array which we can use to iterate over
 var user = {
-        id: 1234567890,
         name: "Den Odell",
         occupation: "Head of Web Development",
         company: "AKQA"
@@ -27,7 +26,7 @@ for (; userIterator.hasNext();) {
 
 // Since we iterated over an object, the resulting data consists of the values stored in each of
 // the object's properties
-alert(output1.join(", ")); // 1234567890, Den Odell, Head of Web Development, AKQA
+alert(output1.join(", ")); // Den Odell, Head of Web Development, AKQA
 
 // Before iterating over the same data again, its index must be rewound to the start
 userIterator.rewind();
@@ -38,7 +37,7 @@ while (userIterator.hasNext()) {
     output2.push(userIterator.next());
 }
 
-alert(output2.join(", ")); // 1234567890, Den Odell, Head of Web Development, AKQA
+alert(output2.join(", ")); // Den Odell, Head of Web Development, AKQA
 
 // Iterate over the array data using the Iterator's built-in each() method - using this
 // approach requires no manual work to manipulate the position of the index, simply pass a

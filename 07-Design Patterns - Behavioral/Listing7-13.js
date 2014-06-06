@@ -12,16 +12,16 @@ function ajaxGet(url) {
     // asynchronous request.
     return new Promise(function(fulfill, reject) {
         var xhr = new XMLHttpRequest(),
-            LOADED_STATE = 4,
-            OK_STATUS = 200;
+            STATE_LOADED = 4,
+            STATUS_OK = 200;
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState !== LOADED_STATE) {
+            if (xhr.readyState !== STATE_LOADED) {
                 return;
             }
 
             // If the Ajax GET request returns data successfully, execute the fulfill method
-            if (xhr.status === OK_STATUS) {
+            if (xhr.status === STATUS_OK) {
                 fulfill(xhr.responseText);
 
             // If the Ajax request does not return data successfully, execute the reject method
@@ -125,6 +125,8 @@ ajaxGet("/page1.html")
         return ajaxGet("/page2.html");
     })
     .then(function() {
+        // This alert will fire only if both /page1.html and /page2.html exist and can
+        // be accessed
         alert("/page1.html and /page2.html received, with a 3s gap between requests");
     });
 

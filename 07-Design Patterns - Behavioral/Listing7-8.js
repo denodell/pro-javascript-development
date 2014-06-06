@@ -1,5 +1,5 @@
 // Define a "class" containing publish(), subscribe(), and unsubscribe() methods to implement
-// the Mediator pattern. Note the similarilty to the Observer pattern, the only difference is
+// the mediator pattern. Note the similarilty to the observer pattern, the only difference is
 // that we are creating a "class" here for creating object instances from later, and that we
 // initialize the events array afresh for each object instance to avoid all instances sharing
 // the same array in memory.

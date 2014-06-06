@@ -12,15 +12,15 @@ var formsMediator = new Mediator(),
 (function(formsMediator) {
     function ajaxPost(url, data, callback) {
         var xhr = new XMLHttpRequest(),
-            LOADED_STATE = 4,
-            OK_STATUS = 200;
+            STATE_LOADED = 4,
+            STATUS_OK = 200;
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState !== LOADED_STATE) {
+            if (xhr.readyState !== STATE_LOADED) {
                 return;
             }
 
-            if (xhr.status === OK_STATUS) {
+            if (xhr.status === STATUS_OK) {
                 callback(xhr.responseText);
             }
         };
