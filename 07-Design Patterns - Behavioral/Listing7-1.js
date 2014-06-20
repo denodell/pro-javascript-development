@@ -53,7 +53,7 @@ LogFormatter.prototype = {
 };
 
 // Define a singleton we can use for storing and outputting logs in a system
-var log = (function() {
+log = (function() {
 
     // Define a storage array for log messages
     var logs = [],

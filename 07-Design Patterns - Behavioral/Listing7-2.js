@@ -18,7 +18,6 @@ var cookie = (function() {
 
         set: function(name, value) {
             cookies[name] = value;
-            console.log('set', name, value);
             document.cookie = escape(name) + "=" + escape(value);
         },
 
