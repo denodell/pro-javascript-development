@@ -51,5 +51,7 @@ canvas.addEventListener("touchstart", function(event) {
     }
 }, false);
 
-// Add the <canvas> element to the current HTML page
-document.body.appendChild(canvas);
+// Add the <canvas> element to the current HTML page once loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(canvas);
+}, false);

@@ -28,5 +28,7 @@ function animate() {
 // updated position each time
 setInterval(animate, 50);
 
-// Add the <canvas> element to the current page
-document.body.appendChild(canvas);
+// Add the <canvas> element to the current page once loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(canvas);
+}, false);

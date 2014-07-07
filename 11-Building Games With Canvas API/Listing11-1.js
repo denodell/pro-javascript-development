@@ -91,5 +91,7 @@ drawLine();
 drawSquare();
 writeText();
 
-// Add the new <canvas> DOM element to the end of the current HTML page
-document.body.appendChild(canvas);
+// Add the new <canvas> DOM element to the end of the current HTML page once loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(canvas);
+}, false);

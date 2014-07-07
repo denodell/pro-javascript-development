@@ -21,5 +21,7 @@ img.addEventListener("load", function() {
 // assigned previously will be executed
 img.src = "filename.png";
 
-// Append the new <canvas> element to the end of the current HTML page
-document.body.appendChild(canvas);
+// Append the new <canvas> element to the end of the current HTML page once loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(canvas);
+}, false);

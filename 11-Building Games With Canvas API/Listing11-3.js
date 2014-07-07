@@ -20,4 +20,6 @@ img.addEventListener("load", function() {
 
 img.src = "sprite-map.png";
 
-document.body.appendChild(canvas);
+window.addEventListener("load", function() {
+    document.body.appendChild(canvas);
+}, false);
