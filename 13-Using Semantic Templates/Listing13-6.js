@@ -29,8 +29,10 @@ outputElement.innerHTML = Mustache.render(template, data, {
     people: peopleTemplate
 });
 
-// Add the new element, populated with HTML, to the current page
-document.body.appendChild(outputElement);
+// Add the new element, populated with HTML, to the current page once loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(outputElement);
+}, false);
 
 // The resulting HTML will be:
 /*

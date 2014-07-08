@@ -30,6 +30,8 @@ var templateElement = document.getElementById("template"),
 meElement.innerHTML = Mustache.render(template, meData);
 billElement.innerHTML = Mustache.render(template, billData);
 
-// Add the new elements, populated with HTML, to the current page
-document.body.appendChild(meElement);
-document.body.appendChild(billElement);
+// Add the new elements, populated with HTML, to the current page once loaded
+window.addEventListener("load", function() {
+    document.body.appendChild(meElement);
+    document.body.appendChild(billElement);
+}, false);
