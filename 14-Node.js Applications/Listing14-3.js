@@ -30,10 +30,12 @@ server = http.createServer(function(request, response) {
     response.write("<h1>Hello, World</h1>\n");
 
     // Close the connection - without this, the HTTP server will expect to continue to send
-    // more data to the browser. This definitely tells the connection that we're done sending
-    // our response data. If we knew we were only going to send one string of data and then
-    // close the connection, we could actually pass that string to the response.end() method
-    // which would call the write() method for us internally in that case
+    // more data to the browser, the connection to the server would be kept open unnecessarily,
+    // wasting server resources and potentially preventing others from connecting to that same
+    // server, depending on demand. The end() method tells the connection that we're done
+    // sending our response data. If we knew we were only going to send one string of data and
+    // then close the connection, we could actually pass that string to the response.end()
+    // method, which would call the write() method for us internally in that case
     response.end();
 });
 
