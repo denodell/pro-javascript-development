@@ -7,7 +7,7 @@ window.requestAnimationFrame = (function(){
     };
 })();
 
-// Store a reference to the last time the game loop began in a local variable – initialize it
+// Store a reference to the last time the game loop began in a local variable–initialize it
 // to the current time
 var lastTimeGameLoopRan = (new Date()).getTime(),
 
