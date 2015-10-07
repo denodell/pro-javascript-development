@@ -24,8 +24,8 @@ var House = Accommodation.extend({
     lock: function() {
 
         // Even though we’re using polymorphism to replace the parent "class" of the same name,
-        // we can still access that parent "class" method using ‘this.parent()’
-        this._parent();
+        // we can still access that parent "class" method using ‘this.__parent()’
+        this.__parent();
         alert("Number of floors locked: " + this.floors);
     }
 });
